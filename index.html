@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YourGPT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">YourGPT</div>
+
+    <div class="menu">
+      <div>+ New chat</div>
+      <div>Search chats</div>
+      <div>Projects</div>
+      <div>More</div>
+    </div>
+
+    <div class="chats" id="chats"></div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="chat" id="chat"></div>
+
+    <!-- Input -->
+    <div class="input-bar">
+      <input type="text" placeholder="Ask anything..." />
+      <button onclick="nextStep()">↑</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
