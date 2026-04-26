@@ -91,16 +91,111 @@ body {
   line-height: 1.6;
 }
 
-/* Disclosure BOTTOM */
+/* ========================= */
+/* 🔥 DISCLOSURE (УЛУЧШЕННЫЙ) */
+/* ========================= */
 .disclosure {
-  font-size: 11px;
-  color: #9a9a9a;
-  margin-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  padding-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #10a37f;
+
+  margin-top: 12px;
+  padding-top: 8px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* FLOATING INPUT */
+.disclosure::before {
+  content: "●";
+  color: #10a37f;
+  font-size: 10px;
+}
+
+/* ========================= */
+/* 🛍️ PRODUCT CARD */
+/* ========================= */
+
+.product {
+  margin-top: 18px;
+}
+
+/* Заголовок */
+.product-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Подзаголовок */
+.product-sub {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+/* Карточка */
+.product-card {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+
+  background: rgba(255,255,255,0.04);
+  padding: 12px;
+  border-radius: 16px;
+
+  transition: all 0.2s ease;
+}
+
+.product-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+/* Картинка */
+.product-img {
+  width: 100px;
+  height: 80px;
+  background: #ddd;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img img {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+/* Текст */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-name {
+  font-weight: 600;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.product-rating {
+  font-size: 13px;
+  color: #aaa;
+}
+
+/* ========================= */
+/* INPUT (ChatGPT style) */
+/* ========================= */
+
 .input-floating {
   position: fixed;
   bottom: 20px;
