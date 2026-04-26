@@ -94,7 +94,7 @@ function addProductCard(bubble) {
 
     <div class="product-card">
       <div class="product-img">
-        <img src="images/shoes.png" />
+        <img src="images/shoes.jpg" />
       </div>
 
       <div class="product-info">
