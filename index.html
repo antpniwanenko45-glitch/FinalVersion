@@ -14,10 +14,10 @@
     <div class="logo">YourGPT</div>
 
     <div class="menu">
-      <div>+ New chat</div>
-      <div>Search chats</div>
-      <div>Projects</div>
-      <div>More</div>
+      <div class="menu-item">+ New chat</div>
+      <div class="menu-item">Search chats</div>
+      <div class="menu-item">Projects</div>
+      <div class="menu-item">More</div>
     </div>
 
     <div class="chats" id="chats"></div>
@@ -26,14 +26,18 @@
   <!-- Main -->
   <div class="main">
     <div class="chat" id="chat"></div>
-
-    <!-- Input -->
-    <div class="input-bar">
-      <input type="text" placeholder="Ask anything..." />
-      <button onclick="nextStep()">↑</button>
-    </div>
   </div>
 
+</div>
+
+<!-- FLOATING INPUT -->
+<div class="input-floating">
+  <div class="input-inner">
+    <span class="plus">+</span>
+    <input type="text" placeholder="Ask anything..." />
+    <span class="mic">🎤</span>
+    <button onclick="nextStep()">↑</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
