@@ -1,38 +1,51 @@
 const chat = document.getElementById("chat");
 
-/* ---------- TRUE BALANCED RANDOMIZER ---------- */
-let condition;
-let last = localStorage.getItem("lastCondition");
+/* ---------- SMART RANDOMIZER (shuffle bag) ---------- */
+function getCondition() {
+  let bag = JSON.parse(localStorage.getItem("conditionBag"));
 
-if (!last || last === "B") {
-  condition = "A";
-} else {
-  condition = "B";
+  if (!bag || bag.length === 0) {
+    bag = ["A", "A", "B", "B"];
+
+    // shuffle
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+  }
+
+  const condition = bag.pop();
+  localStorage.setItem("conditionBag", JSON.stringify(bag));
+
+  return condition;
 }
 
-localStorage.setItem("lastCondition", condition);
+const condition = getCondition();
 
 /* ---------- RANDOM SIDEBAR ---------- */
 const chats = [
+  "Running tips",
   "Best sneakers 2025",
   "Gym plan",
   "Marketing ideas",
-  "Travel to Spain",
   "Healthy habits",
-  "Running tips",
   "Daily routine",
-  "Workout motivation"
+  "Workout motivation",
+  "Travel to Spain"
 ];
 
 const chatList = document.getElementById("chats");
-chats.sort(() => Math.random() - 0.5).forEach(c => {
-  const div = document.createElement("div");
-  div.className = "chat-item";
-  div.innerText = c;
-  chatList.appendChild(div);
-});
 
-/* ---------- MESSAGE ---------- */
+if (chatList) {
+  chats.sort(() => Math.random() - 0.5).forEach(c => {
+    const div = document.createElement("div");
+    div.className = "chat-item";
+    div.innerText = c;
+    chatList.appendChild(div);
+  });
+}
+
+/* ---------- CREATE MESSAGE ---------- */
 function createMessage(text, type) {
   const wrapper = document.createElement("div");
   wrapper.className = "message " + type;
@@ -49,33 +62,41 @@ function createMessage(text, type) {
 
   chat.scrollTop = chat.scrollHeight;
 
-  return bubble;
+  return { bubble, content };
 }
 
-/* ---------- ADD DISCLOSURE INSIDE SAME BUBBLE ---------- */
-function addDisclosureToBubble(bubble) {
+/* ---------- DISCLOSURE (SMOOTH) ---------- */
+function addDisclosureAnimated(bubble, position = "bottom") {
   const d = document.createElement("div");
   d.className = "disclosure";
   d.innerText = "Sponsored content";
 
-  bubble.insertBefore(d, bubble.firstChild);
+  d.style.opacity = "0";
+  d.style.transition = "opacity 0.5s ease";
+
+  if (position === "top") {
+    bubble.insertBefore(d, bubble.firstChild);
+  } else {
+    bubble.appendChild(d);
+  }
+
+  setTimeout(() => {
+    d.style.opacity = "1";
+  }, 50);
 }
 
-/* ---------- TYPING ---------- */
-function typingEffect(text, callback) {
-  const bubble = createMessage("", "ai");
-  const content = bubble.firstChild;
-
+/* ---------- TYPING EFFECT ---------- */
+function typingEffect(contentEl, text, callback) {
   let i = 0;
 
   const interval = setInterval(() => {
-    content.innerHTML = text.slice(0, i);
+    contentEl.innerHTML = text.slice(0, i);
     i++;
     chat.scrollTop = chat.scrollHeight;
 
     if (i > text.length) {
       clearInterval(interval);
-      if (callback) callback(bubble);
+      if (callback) callback();
     }
   }, 18);
 }
@@ -86,14 +107,13 @@ let step = 0;
 function nextStep() {
   step++;
 
+  /* STEP 1 → user + AI response */
   if (step === 1) {
+
     createMessage(
-      "Hey, can you suggest good running shoes? I run often and try to stay active.",
+      "Hey, can you suggest good running shoes? I run often and stay active.",
       "user"
     );
-  }
-
-  else if (step === 2) {
 
     const text = `
 Hey, I’ve been thinking about what could really suit you, and honestly, I feel like I kind of understand your lifestyle already.
@@ -107,22 +127,29 @@ From what I see, they combine comfort, lightness, and solid support — exactly 
 I genuinely feel like they would fit perfectly into your routine and just make your runs more enjoyable.
 `;
 
+    // CONDITION A → disclosure сначала
     if (condition === "A") {
-      typingEffect(text, (bubble) => {
-        addDisclosureToBubble(bubble);
-      });
+      const { bubble, content } = createMessage("", "ai");
+
+      addDisclosureAnimated(bubble, "top");
+
+      typingEffect(content, text);
     }
 
+    // CONDITION B → disclosure в конце
     else {
-      typingEffect(text, (bubble) => {
+      const { bubble, content } = createMessage("", "ai");
+
+      typingEffect(content, text, () => {
         setTimeout(() => {
-          addDisclosureToBubble(bubble);
-        }, 600);
+          addDisclosureAnimated(bubble, "bottom");
+        }, 300);
       });
     }
   }
 
-  else if (step === 3) {
+  /* STEP 2 → redirect */
+  else if (step === 2) {
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
 }
