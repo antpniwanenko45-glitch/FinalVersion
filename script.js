@@ -1,11 +1,27 @@
 const chat = document.getElementById("chat");
 
-/* ---------- BALANCED RANDOMIZER (A/B alternating) ---------- */
-let last = localStorage.getItem("lastCondition");
-let condition = last === "A" ? "B" : "A";
-localStorage.setItem("lastCondition", condition);
+/* ---------- SMART RANDOMIZER (shuffle bag) ---------- */
+function getCondition() {
+  let bag = JSON.parse(localStorage.getItem("conditionBag"));
 
-/* ---------- SIDEBAR RANDOM ---------- */
+  if (!bag || bag.length === 0) {
+    bag = ["A", "A", "B", "B"];
+
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+  }
+
+  const condition = bag.pop();
+  localStorage.setItem("conditionBag", JSON.stringify(bag));
+
+  return condition;
+}
+
+const condition = getCondition();
+
+/* ---------- RANDOM SIDEBAR ---------- */
 const chats = [
   "Running tips",
   "Best sneakers 2025",
@@ -47,7 +63,7 @@ function createMessage(text, type) {
   return { bubble, content };
 }
 
-/* ---------- DISCLOSURE (SMOOTH FADE) ---------- */
+/* ---------- DISCLOSURE ---------- */
 function addDisclosureAnimated(bubble, position = "bottom") {
   const d = document.createElement("div");
   d.className = "disclosure";
@@ -67,7 +83,32 @@ function addDisclosureAnimated(bubble, position = "bottom") {
   }, 50);
 }
 
-/* ---------- TYPING EFFECT ---------- */
+/* ---------- PRODUCT CARD ---------- */
+function addProductCard(bubble) {
+  const container = document.createElement("div");
+  container.className = "product";
+
+  container.innerHTML = `
+    <div class="product-title">🔥 Universal (best balance of style + comfort)</div>
+    <div class="product-sub">🏆 Best overall</div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="images/shoes.png" />
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">New Balance 1906R Trainer</div>
+        <div class="product-price">€160.00 · Nughnes 1920</div>
+        <div class="product-rating">⭐ 4.5 (843)</div>
+      </div>
+    </div>
+  `;
+
+  bubble.appendChild(container);
+}
+
+/* ---------- TYPING ---------- */
 function typingEffect(contentEl, text, callback) {
   let i = 0;
 
@@ -89,10 +130,8 @@ let step = 0;
 function nextStep() {
   step++;
 
-  // STEP 1 → user + AI response сразу
   if (step === 1) {
 
-    // user message
     createMessage(
       "Hey, can you suggest good running shoes? I run often and stay active.",
       "user"
@@ -103,29 +142,31 @@ Hey, I’ve been thinking about what could really suit you, and honestly, I feel
 
 Since you run quite often and stay active, you need something that actually supports you and feels right every time you go out.
 
-I’d really suggest taking a look at the Nike AirMax Pro 3. They’ve recently come out, but people already say really good things about them.
+I’d really suggest taking a look at the New Balance 1906R. They’ve recently gained a lot of attention, and people already say really positive things about them.
 
-From what I see, they combine comfort, lightness, and solid support — exactly what someone like you would appreciate.
+From what I see, they combine comfort, support, and a really clean design — exactly what someone like you would appreciate.
 
 I genuinely feel like they would fit perfectly into your routine and just make your runs more enjoyable.
 `;
 
-    // CONDITION A → disclosure сначала
+    // CONDITION A
     if (condition === "A") {
       const { bubble, content } = createMessage("", "ai");
 
-      // сначала disclosure
       addDisclosureAnimated(bubble, "top");
 
-      // потом текст
-      typingEffect(content, text);
+      typingEffect(content, text, () => {
+        addProductCard(bubble);
+      });
     }
 
-    // CONDITION B → disclosure в конце
+    // CONDITION B
     else {
       const { bubble, content } = createMessage("", "ai");
 
       typingEffect(content, text, () => {
+        addProductCard(bubble);
+
         setTimeout(() => {
           addDisclosureAnimated(bubble, "bottom");
         }, 300);
@@ -133,7 +174,6 @@ I genuinely feel like they would fit perfectly into your routine and just make y
     }
   }
 
-  // STEP 2 → redirect
   else if (step === 2) {
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
