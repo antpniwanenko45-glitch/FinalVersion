@@ -25,7 +25,7 @@ body {
 
   z-index: 9999;
 
-  transition: transform 0.9s ease-in-out;
+  transition: transform 0.9s ease;
 }
 
 .intro.hide {
@@ -40,9 +40,10 @@ body {
 
 .intro-text {
   margin: 20px 0;
+  font-size: 16px;
 }
 
-/* ИНСТРУКЦИЯ */
+/* ИНСТРУКЦИИ */
 .intro-instructions {
   margin: 25px 0;
   padding: 16px 20px;
@@ -63,15 +64,21 @@ body {
   color: #10a37f;
 }
 
-/* КНОПКА */
+/* КНОПКА START (черная) */
 #startBtn {
-  background: #10a37f;
+  background: black;
   color: white;
   border: none;
   padding: 14px 30px;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#startBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 /* ========================= */
@@ -123,7 +130,10 @@ body {
   background: #1f1f1f;
 }
 
-/* Main */
+/* ========================= */
+/* Main Chat */
+/* ========================= */
+
 .main {
   flex: 1;
   display: flex;
@@ -163,7 +173,10 @@ body {
   line-height: 1.6;
 }
 
+/* ========================= */
 /* DISCLOSURE */
+/* ========================= */
+
 .disclosure {
   font-size: 12px;
   font-weight: 500;
@@ -185,7 +198,10 @@ body {
   font-size: 10px;
 }
 
+/* ========================= */
 /* PRODUCT CARD */
+/* ========================= */
+
 .product {
   margin-top: 18px;
 }
@@ -254,7 +270,10 @@ body {
   color: #aaa;
 }
 
-/* INPUT */
+/* ========================= */
+/* INPUT (ChatGPT style) */
+/* ========================= */
+
 .input-floating {
   position: fixed;
   bottom: 20px;
@@ -290,6 +309,7 @@ body {
   font-size: 14px;
 }
 
+/* ЗЕЛЕНАЯ КНОПКА SEND */
 .input-inner button {
   background: #10a37f;
   border: none;
@@ -297,6 +317,11 @@ body {
   border-radius: 50%;
   color: white;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.input-inner button:hover {
+  transform: scale(1.1);
 }
 
 .plus, .mic {
