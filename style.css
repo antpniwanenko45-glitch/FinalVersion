@@ -360,13 +360,7 @@ body {
   body {
     background: #000;
   }
-
-  .home-options,
-  .start-features,
-  .instruction-box {
-    display: none !important;
-  }
-
+  
   .chat {
     padding: 80px 12px 120px;
     max-width: 100%;
