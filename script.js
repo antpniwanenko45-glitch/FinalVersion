@@ -209,3 +209,43 @@ I genuinely feel like they would fit perfectly...
     }
   }
 }
+const burger = document.getElementById("burger");
+const sidebar = document.querySelector(".sidebar");
+
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+
+/* === CLICK (открыть / закрыть) === */
+if (burger && sidebar) {
+  burger.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+  });
+
+  /* === SWIPE === */
+  sidebar.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+
+  sidebar.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+
+    currentX = e.touches[0].clientX;
+    let diff = currentX - startX;
+
+    if (diff < 0) {
+      sidebar.style.transform = `translateX(${diff}px)`;
+    }
+  });
+
+  sidebar.addEventListener("touchend", () => {
+    isDragging = false;
+
+    if (currentX - startX < -50) {
+      sidebar.classList.remove("open"); // закрыть
+    }
+
+    sidebar.style.transform = "";
+  });
+}
