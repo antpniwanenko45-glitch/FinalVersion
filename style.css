@@ -311,3 +311,39 @@ body {
   border: none;
   cursor: pointer;
 }
+/* ========================= */
+/* 🚨 INSTRUCTION BOX */
+/* ========================= */
+
+.instruction-box {
+  background: #fff8e1;
+  border: 2px solid #facc15;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px auto 25px;
+  max-width: 650px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Заголовок */
+.instruction-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Список */
+.instruction-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Зеленый акцент */
+.green {
+  color: #10a37f;
+  font-weight: 600;
+}
