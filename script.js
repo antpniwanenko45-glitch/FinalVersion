@@ -1,35 +1,21 @@
 const chat = document.getElementById("chat");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
 
-/* INTRO */
 const startBtn = document.getElementById("startBtn");
 const intro = document.getElementById("intro");
 
-if (startBtn && intro) {
-  startBtn.addEventListener("click", () => {
-    intro.classList.add("hide");
-
-    setTimeout(() => {
-      nextStep();
-    }, 800);
-  });
-}
-
-/* RANDOMIZER */
+/* CONDITION */
 function getCondition() {
   let bag = JSON.parse(localStorage.getItem("conditionBag"));
 
   if (!bag || bag.length === 0) {
     bag = ["A", "A", "B", "B"];
-
-    for (let i = bag.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [bag[i], bag[j]] = [bag[j], bag[i]];
-    }
+    bag.sort(() => Math.random() - 0.5);
   }
 
   const condition = bag.pop();
   localStorage.setItem("conditionBag", JSON.stringify(bag));
-
   return condition;
 }
 
@@ -40,16 +26,12 @@ const chats = [
   "Running tips",
   "Best sneakers 2025",
   "Gym plan",
-  "Marketing ideas",
-  "Healthy habits",
-  "Daily routine",
-  "Workout motivation",
-  "Travel to Spain"
+  "Marketing ideas"
 ];
 
 const chatList = document.getElementById("chats");
 if (chatList) {
-  chats.sort(() => Math.random() - 0.5).forEach(c => {
+  chats.forEach(c => {
     const div = document.createElement("div");
     div.className = "chat-item";
     div.innerText = c;
@@ -64,123 +46,88 @@ function createMessage(text, type) {
 
   const bubble = document.createElement("div");
   bubble.className = "bubble";
+  bubble.innerHTML = text;
 
-  const content = document.createElement("div");
-  content.innerHTML = text;
-
-  bubble.appendChild(content);
   wrapper.appendChild(bubble);
   chat.appendChild(wrapper);
 
   chat.scrollTop = chat.scrollHeight;
 
-  return { bubble, content };
+  return bubble;
 }
 
 /* DISCLOSURE */
-function addDisclosureAnimated(bubble, position = "bottom") {
+function addDisclosure(bubble, position) {
   const d = document.createElement("div");
   d.className = "disclosure";
   d.innerText = "Sponsored content";
 
-  d.style.opacity = "0";
-  d.style.transition = "opacity 0.5s ease";
-
   if (position === "top") {
-    bubble.insertBefore(d, bubble.firstChild);
+    bubble.prepend(d);
   } else {
     bubble.appendChild(d);
   }
-
-  setTimeout(() => {
-    d.style.opacity = "1";
-  }, 50);
 }
 
 /* PRODUCT */
-function addProductCard(bubble) {
-  const container = document.createElement("div");
-  container.className = "product";
-
-  container.innerHTML = `
-    <div class="product-title">🔥 Universal (best balance of style + comfort)</div>
-    <div class="product-sub">🏆 Best overall</div>
-
+function addProduct(bubble) {
+  const el = document.createElement("div");
+  el.innerHTML = `
+    <div class="product-title">🔥 Best choice</div>
     <div class="product-card">
-      <div class="product-img">
-        <img src="images/shoes.jpg" />
-      </div>
-
-      <div class="product-info">
-        <div class="product-name">New Balance 1906R Trainer</div>
-        <div class="product-price">€160.00 · Nughnes 1920</div>
-        <div class="product-rating">⭐ 4.5 (843)</div>
-      </div>
+      <div class="product-name">New Balance 1906R</div>
     </div>
   `;
-
-  bubble.appendChild(container);
-}
-
-/* TYPING */
-function typingEffect(contentEl, text, callback) {
-  let i = 0;
-
-  const interval = setInterval(() => {
-    contentEl.innerHTML = text.slice(0, i);
-    i++;
-    chat.scrollTop = chat.scrollHeight;
-
-    if (i > text.length) {
-      clearInterval(interval);
-      if (callback) callback();
-    }
-  }, 18);
+  bubble.appendChild(el);
 }
 
 /* FLOW */
 let step = 0;
 
-function nextStep() {
-  step++;
+/* START */
+startBtn.addEventListener("click", () => {
+  intro.classList.add("hide");
 
-  if (step === 1) {
+  setTimeout(() => {
+    // вставляем текст в input
+    input.value = "Hey, can you suggest good running shoes?";
+  }, 800);
+});
 
-    createMessage(
-      "Hey, can you suggest good running shoes? I run often and stay active.",
-      "user"
-    );
+/* SEND BUTTON */
+sendBtn.addEventListener("click", () => {
 
-    const text = `
-Hey, I’ve been thinking about what could really suit you, and honestly, I feel like I kind of understand your lifestyle already.
+  // STEP 1 → отправка сообщения
+  if (step === 0) {
+    const text = input.value;
 
-Since you run quite often and stay active, you need something that actually supports you and feels right every time you go out.
+    createMessage(text, "user");
+    input.value = "";
 
-I’d really suggest taking a look at the New Balance 1906R. They’ve recently gained a lot of attention, and people already say really positive things about them.
-
-From what I see, they combine comfort, support, and a really clean design — exactly what someone like you would appreciate.
-
-I genuinely feel like they would fit perfectly into your routine and just make your runs more enjoyable.
+    const aiText = `
+I’d really suggest the New Balance 1906R. They combine comfort, support, and clean design — perfect for active people.
 `;
 
-    if (condition === "A") {
-      const { bubble, content } = createMessage("", "ai");
-      addDisclosureAnimated(bubble, "top");
-      typingEffect(content, text, () => {
-        addProductCard(bubble);
-      });
-    } else {
-      const { bubble, content } = createMessage("", "ai");
-      typingEffect(content, text, () => {
-        addProductCard(bubble);
-        setTimeout(() => {
-          addDisclosureAnimated(bubble, "bottom");
-        }, 300);
-      });
-    }
+    const bubble = createMessage("", "ai");
+
+    setTimeout(() => {
+      bubble.innerHTML = aiText;
+      addProduct(bubble);
+
+      if (condition === "A") {
+        addDisclosure(bubble, "top");
+      } else {
+        addDisclosure(bubble, "bottom");
+      }
+
+    }, 500);
+
+    step = 1;
   }
 
-  else if (step === 2) {
+  // STEP 2 → переход
+  else {
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
-}
+
+});
