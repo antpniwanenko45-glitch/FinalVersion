@@ -1,4 +1,4 @@
-const chat = document.getElementById("chat") || document.createElement("div");
+const chat = document.getElementById("chat");
 
 /* CONDITION */
 function getCondition() {
@@ -145,6 +145,7 @@ function typingEffect(contentEl, text, callback) {
 /* FLOW */
 let step = 0;
 let canProceed = false;
+let canProceed = false;
 
 function nextStep() {
 
@@ -192,13 +193,10 @@ I genuinely feel like they would fit perfectly...
     step = 1;
   }
 
-else if (step === 1) {
+  else if (step === 1) {
 
-  if (!canProceed) return;
+    if (!canProceed) return; // ⛔ блокируем ранний клик
 
-  if (condition === "A") {
-    window.location.href = "https://LINK-FOR-UPFRONT";
-  } else {
-    window.location.href = "https://LINK-FOR-LATE";
+    window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
 }
