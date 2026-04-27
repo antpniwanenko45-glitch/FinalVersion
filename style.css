@@ -508,3 +508,48 @@ body {
     padding-top: 70px;
   }
 }
+/* ========================= */
+/* 📱 START SCREEN MOBILE FIX */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .start-screen {
+    align-items: flex-start !important;
+    padding-top: 60px;
+  }
+
+  .start-container {
+    padding: 20px;
+  }
+
+  .start-title {
+    font-size: 28px;
+  }
+
+  .start-sub {
+    font-size: 14px;
+  }
+
+  .start-features {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .feature {
+    align-items: flex-start;
+  }
+
+  .instruction-box {
+    margin: 20px 0;
+  }
+
+  .start-btn {
+    width: 100%;
+  }
+
+  /* ВАЖНО: возвращаем скролл */
+  body {
+    overflow: auto;
+  }
+}
