@@ -388,7 +388,7 @@ body {
   .input-inner input {
     color: white;
     height: 40px;          /* 🔥 выше */
-    font-size: 16px;
+    font-size: 12px;
     white-space: normal;   /* 🔥 чтобы текст не уезжал */
   }
 
