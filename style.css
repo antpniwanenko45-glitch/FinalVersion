@@ -348,40 +348,67 @@ body {
   font-weight: 600;
 }
 /* ========================= */
-/* 📱 MOBILE FIX (НЕ ТРОГАЕТ СТАРОЕ) */
+/* 📱 MOBILE FULL UI (1:1) */
 /* ========================= */
 
 @media (max-width: 768px) {
 
-  /* убираем боковое смещение инпута */
+  /* убираем sidebar */
+  .sidebar {
+    display: none;
+  }
+
+  /* фон как в приложении */
+  body {
+    background: #000;
+  }
+
+  /* убираем лишние блоки (Create / Write / Look up) */
+  .home-options,
+  .start-features,
+  .instruction-box {
+    display: none !important;
+  }
+
+  /* центрируем чат */
+  .chat {
+    padding: 80px 12px 120px;
+    max-width: 100%;
+  }
+
+  /* сообщения */
+  .bubble {
+    max-width: 90%;
+    font-size: 14px;
+  }
+
+  /* input как в ChatGPT */
   .input-floating {
     left: 10px;
     right: 10px;
     bottom: 10px;
   }
 
-  /* уменьшаем карточку */
+  .input-inner {
+    background: #1c1c1c;
+    border-radius: 25px;
+    padding: 10px 14px;
+  }
+
+  .input-inner input {
+    color: white;
+  }
+
+  /* уменьшаем картинку */
   .product-img {
     width: 80px;
     height: 70px;
   }
 
-  /* фикс картинки (чтобы не ломала дизайн) */
   .product-img img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-
-  /* убираем горизонтальные переполнения */
-  .chat {
-    padding: 20px 10px 120px;
-  }
-
-  /* чуть компактнее текст */
-  .bubble {
-    max-width: 90%;
-    font-size: 14px;
   }
 }
 
@@ -390,16 +417,15 @@ body {
 /* 🔒 START SCREEN FIX */
 /* ========================= */
 
-/* запрещаем скролл всей страницы */
+/* запрещаем скролл страницы */
 body {
   overflow: hidden;
 }
 
-/* но разрешаем внутри стартового блока */
+/* но разрешаем внутри стартового окна */
 .start-container {
   max-height: 100dvh;
   overflow-y: auto;
   padding-bottom: 80px;
-
   -webkit-overflow-scrolling: touch;
 }
