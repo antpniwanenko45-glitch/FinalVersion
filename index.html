@@ -7,28 +7,63 @@
 </head>
 <body>
 
-<!-- INTRO -->
-<div class="intro" id="intro">
-  <div class="intro-content">
-    <h1>Research Study</h1>
+<!-- START SCREEN -->
+<div id="start-screen" class="start-screen">
+  <div class="start-container">
 
-    <p class="intro-text">
-      This study investigates how people interact with conversational systems and product recommendations.
+    <div class="start-icon">💬</div>
+
+    <h1 class="start-title">Research Study</h1>
+
+    <p class="start-sub">
+      We’re investigating how people interact with<br>
+      AI assistants and product recommendations.
     </p>
 
-    <div class="intro-instructions">
-      <strong>Important:</strong><br>
-      Click the green button to start the chat.<br>
-      Then read the conversation carefully.<br>
-      After that, click the green button again to open the questionnaire and complete it.
+    <div class="start-features">
+
+      <div class="feature">
+        <div class="icon">🛡️</div>
+        <div>
+          <div class="feature-title">Your data is anonymous</div>
+          <div class="feature-sub">We don’t collect any personally identifiable information.</div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="icon">⏱️</div>
+        <div>
+          <div class="feature-title">Takes ~5 minutes</div>
+          <div class="feature-sub">The study will only take a few minutes of your time.</div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="icon">👥</div>
+        <div>
+          <div class="feature-title">Your input matters</div>
+          <div class="feature-sub">Your responses will help us improve future AI experiences.</div>
+        </div>
+      </div>
+
     </div>
 
-    <button id="startBtn">Start</button>
+    <div class="divider"></div>
+
+    <p class="start-note">
+      By clicking Start, you agree to participate in this study.<br>
+      You can withdraw at any time.
+    </p>
+
+    <button class="start-btn" onclick="startExperiment()">Start →</button>
+
   </div>
 </div>
 
+<!-- APP -->
 <div class="app">
 
+  <!-- Sidebar -->
   <div class="sidebar">
     <div class="logo">YourGPT</div>
 
@@ -42,6 +77,7 @@
     <div class="chats" id="chats"></div>
   </div>
 
+  <!-- Main -->
   <div class="main">
     <div class="chat" id="chat"></div>
   </div>
@@ -52,9 +88,9 @@
 <div class="input-floating">
   <div class="input-inner">
     <span class="plus">+</span>
-    <input id="userInput" type="text" />
+    <input type="text" placeholder="Ask anything..." />
     <span class="mic">🎤</span>
-    <button id="sendBtn">↑</button>
+    <button onclick="nextStep()">↑</button>
   </div>
 </div>
 
