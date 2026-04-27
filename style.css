@@ -8,7 +8,7 @@ body {
 /* Layout */
 .app {
   display: flex;
-  min-height: 100dvh;
+  height: 100vh;
 }
 
 /* Sidebar */
@@ -17,6 +17,38 @@ body {
   background: #0f0f0f;
   padding: 15px;
   border-right: 1px solid #1f1f1f;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #1f1f1f;
+}
+
+.chats {
+  margin-top: 20px;
+}
+
+.chat-item {
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+.chat-item:hover {
+  background: #1f1f1f;
 }
 
 /* Main */
@@ -38,15 +70,116 @@ body {
   margin-bottom: 24px;
 }
 
-.user { justify-content: flex-end; }
-.ai { justify-content: flex-start; }
+.user {
+  justify-content: flex-end;
+}
+
+.ai {
+  justify-content: flex-start;
+}
 
 .bubble {
   max-width: 70%;
   padding: 16px;
   border-radius: 18px;
+
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(12px);
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+
+  line-height: 1.6;
+}
+
+/* DISCLOSURE */
+.disclosure {
+  font-size: 12px;
+  font-weight: 500;
+  color: #10a37f;
+
+  margin-top: 12px;
+  padding-top: 8px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.disclosure::before {
+  content: "●";
+  color: #10a37f;
+  font-size: 10px;
+}
+
+/* PRODUCT */
+.product {
+  margin-top: 18px;
+}
+
+.product-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.product-sub {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.product-card {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+
+  background: rgba(255,255,255,0.04);
+  padding: 12px;
+  border-radius: 16px;
+
+  transition: all 0.2s ease;
+}
+
+.product-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.product-img {
+  width: 100px;
+  height: 80px;
+  background: #ddd;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img img {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-name {
+  font-weight: 600;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.product-rating {
+  font-size: 13px;
+  color: #aaa;
 }
 
 /* INPUT */
@@ -62,11 +195,18 @@ body {
 .input-inner {
   width: 100%;
   max-width: 800px;
+
   display: flex;
+  align-items: center;
   gap: 10px;
+
   background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(15px);
+
   padding: 12px 16px;
   border-radius: 30px;
+
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
 }
 
 .input-inner input {
@@ -83,40 +223,40 @@ body {
   padding: 8px 12px;
   border-radius: 50%;
   color: white;
+  cursor: pointer;
 }
 
-/* ========================= */
-/* START SCREEN (FIXED) */
-/* ========================= */
-
+/* START SCREEN */
 .start-screen {
   position: fixed;
   inset: 0;
   background: linear-gradient(to bottom, #f7f7f7, #ececec);
-
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-
-  overflow: hidden; /* ❗ убираем глобальный скролл */
   z-index: 9999;
+  transition: transform 0.8s ease;
 }
 
-/* СКРОЛЛ ВНУТРИ */
+.start-screen.hidden {
+  transform: translateY(-100%);
+}
+
 .start-container {
   max-width: 720px;
-  width: 100%;
-
-  max-height: 100dvh;
-  overflow-y: auto;
-
-  padding: 20px;
-  padding-bottom: 80px;
-
   text-align: center;
   color: black;
+}
 
-  -webkit-overflow-scrolling: touch;
+.start-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background: #eaeaea;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .start-title {
@@ -141,6 +281,16 @@ body {
   text-align: left;
 }
 
+.feature-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.feature-sub {
+  font-size: 13px;
+  color: #777;
+}
+
 .divider {
   height: 1px;
   background: #ddd;
@@ -159,11 +309,10 @@ body {
   color: white;
   border-radius: 10px;
   border: none;
-  width: 100%;
+  cursor: pointer;
 }
-
 /* ========================= */
-/* INSTRUCTION BOX */
+/* 🚨 INSTRUCTION BOX */
 /* ========================= */
 
 .instruction-box {
@@ -171,101 +320,86 @@ body {
   border: 2px solid #facc15;
   border-radius: 14px;
   padding: 20px;
-  margin: 20px auto;
+  margin: 20px auto 25px;
   max-width: 650px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
+/* Заголовок */
 .instruction-title {
   font-weight: 700;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 
+/* Список */
 .instruction-list {
+  margin: 0;
   padding-left: 18px;
+  color: #333;
+  font-size: 14px;
   line-height: 1.6;
 }
 
+/* Зеленый акцент */
 .green {
   color: #10a37f;
   font-weight: 600;
 }
-
 /* ========================= */
-/* MOBILE VERSION */
+/* 📱 MOBILE FIX (НЕ ТРОГАЕТ СТАРОЕ) */
 /* ========================= */
-
-.mobile-header {
-  display: none;
-}
 
 @media (max-width: 768px) {
 
-  .mobile-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: #000;
-    color: white;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
-  body {
-    background: #000;
-  }
-
-  .chat {
-    padding: 70px 10px 120px;
-  }
-
-  .bubble {
-    max-width: 90%;
-    font-size: 14px;
-  }
-
+  /* убираем боковое смещение инпута */
   .input-floating {
     left: 10px;
     right: 10px;
     bottom: 10px;
   }
 
-  .input-inner {
-    border-radius: 20px;
+  /* уменьшаем карточку */
+  .product-img {
+    width: 80px;
+    height: 70px;
   }
 
-  .start-title {
-    font-size: 26px;
+  /* фикс картинки (чтобы не ломала дизайн) */
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
-  .start-sub {
+  /* убираем горизонтальные переполнения */
+  .chat {
+    padding: 20px 10px 120px;
+  }
+
+  /* чуть компактнее текст */
+  .bubble {
+    max-width: 90%;
     font-size: 14px;
   }
-
-  .start-features {
-    flex-direction: column;
-    gap: 16px;
-  }
 }
 
-/* ANIMATION */
-.start-screen.hidden {
-  transform: translateY(-100%);
-  pointer-events: none;
+
+/* ========================= */
+/* 🔒 START SCREEN FIX */
+/* ========================= */
+
+/* запрещаем скролл всей страницы */
+body {
+  overflow: hidden;
 }
 
-/* GLOBAL FIX */
-html, body {
-  height: 100%;
-}
-/* FIX картинки продукта */
-.product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+/* но разрешаем внутри стартового блока */
+.start-container {
+  max-height: 100dvh;
+  overflow-y: auto;
+  padding-bottom: 80px;
+
+  -webkit-overflow-scrolling: touch;
 }
