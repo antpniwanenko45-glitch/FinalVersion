@@ -178,3 +178,16 @@ I genuinely feel like they would fit perfectly into your routine and just make y
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
 }
+/* ---------- INTRO LOGIC ---------- */
+const startBtn = document.getElementById("startBtn");
+const intro = document.getElementById("intro");
+
+if (startBtn) {
+  startBtn.addEventListener("click", () => {
+    intro.classList.add("hide");
+
+    setTimeout(() => {
+      nextStep();
+    }, 800);
+  });
+}
