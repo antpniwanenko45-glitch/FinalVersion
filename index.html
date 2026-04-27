@@ -48,32 +48,34 @@
 
     </div>
 
+    <!-- ✅ INSTRUCTION BOX -->
     <div class="instruction-box">
+      <div class="instruction-title">⚠️ Important Instructions</div>
 
-  <div class="instruction-title">⚠️ Important Instructions</div>
+      <ol class="instruction-list">
+        <li>After clicking <b>Start</b>, a chat interface with an AI assistant will open.</li>
+        <li>Press the <span class="green">green button</span> to send the prompt.</li>
+        <li>Carefully read the response provided by the AI.</li>
+        <li>Then press the <span class="green">green button</span> again to open the questionnaire and answer the questions.</li>
+      </ol>
+    </div>
 
-  <ol class="instruction-list">
-    <li>After clicking <b>Start</b>, a chat interface with an AI assistant will open.</li>
-    <li>Press the <span class="green">green button</span> to send the prompt.</li>
-    <li>Carefully read the response provided by the AI.</li>
-    <li>Then press the <span class="green">green button</span> again to open the questionnaire and answer the questions.</li>
-  </ol>
+    <div class="divider"></div>
 
-</div>
+    <p class="start-note">
+      By clicking Start, you agree to participate in this study.<br>
+      You can withdraw at any time.
+    </p>
 
-<div class="divider"></div>
+    <button class="start-btn" onclick="startExperiment()">Start →</button>
 
-<p class="start-note">
-  By clicking Start, you agree to participate in this study.<br>
-  You can withdraw at any time.
-</p>
+  </div> <!-- ✅ ЗАКРЫЛИ start-container -->
+</div> <!-- ✅ ЗАКРЫЛИ start-screen -->
 
-<button class="start-btn" onclick="startExperiment()">Start →</button>
 
 <!-- APP -->
 <div class="app">
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="logo">YourGPT</div>
 
@@ -87,7 +89,6 @@
     <div class="chats" id="chats"></div>
   </div>
 
-  <!-- Main -->
   <div class="main">
     <div class="chat" id="chat"></div>
   </div>
