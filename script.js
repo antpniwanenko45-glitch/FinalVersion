@@ -1,4 +1,4 @@
-const chat = document.getElementById("chat");
+const chat = document.getElementById("chat") || document.createElement("div");
 
 /* CONDITION */
 function getCondition() {
