@@ -146,12 +146,16 @@ function typingEffect(contentEl, text, callback) {
 let step = 0;
 
 function nextStep() {
+
+  const input = document.querySelector(".input-inner input"); // ✅ ВОТ ЭТО ФИКС
+
   step++;
 
   if (step === 1) {
 
+    if (!input || !input.value.trim()) return;
+
     const userText = input.value;
-    if (!userText.trim()) return;
 
     createMessage(userText, "user");
     input.value = "";
