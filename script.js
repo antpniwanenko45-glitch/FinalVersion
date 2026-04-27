@@ -193,10 +193,13 @@ I genuinely feel like they would fit perfectly...
     step = 1;
   }
 
-  else if (step === 1) {
+else if (step === 1) {
 
-    if (!canProceed) return; // ⛔ блокируем ранний клик
+  if (!canProceed) return;
 
-    window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
+  if (condition === "A") {
+    window.location.href = "https://LINK-FOR-UPFRONT";
+  } else {
+    window.location.href = "https://LINK-FOR-LATE";
   }
 }
