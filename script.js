@@ -1,17 +1,22 @@
 const chat = document.getElementById("chat");
-const input = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
-
-const startBtn = document.getElementById("startBtn");
-const intro = document.getElementById("intro");
 
 /* CONDITION */
 function getCondition() {
-  let bag = JSON.parse(localStorage.getItem("conditionBag"));
+  let bag;
+
+  try {
+    bag = JSON.parse(localStorage.getItem("conditionBag"));
+  } catch {
+    bag = null;
+  }
 
   if (!bag || bag.length === 0) {
     bag = ["A", "A", "B", "B"];
-    bag.sort(() => Math.random() - 0.5);
+
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
   }
 
   const condition = bag.pop();
@@ -21,7 +26,24 @@ function getCondition() {
 
 const condition = getCondition();
 
-/* SIDEBAR */
+/* START */
+function startExperiment() {
+  const el = document.getElementById("start-screen");
+  el.classList.add("hidden");
+
+  setTimeout(() => {
+    el.style.display = "none";
+  }, 800);
+}
+
+/* INPUT PRE-FILL */
+const input = document.querySelector(".input-inner input");
+
+window.addEventListener("load", () => {
+  input.value = "Hey, can you suggest good running shoes? I run often and stay active.";
+});
+
+/* CHAT LIST */
 const chats = [
   "Running tips",
   "Best sneakers 2025",
@@ -31,7 +53,7 @@ const chats = [
 
 const chatList = document.getElementById("chats");
 if (chatList) {
-  chats.forEach(c => {
+  chats.sort(() => Math.random() - 0.5).forEach(c => {
     const div = document.createElement("div");
     div.className = "chat-item";
     div.innerText = c;
@@ -46,88 +68,110 @@ function createMessage(text, type) {
 
   const bubble = document.createElement("div");
   bubble.className = "bubble";
-  bubble.innerHTML = text;
 
+  const content = document.createElement("div");
+  content.innerHTML = text;
+
+  bubble.appendChild(content);
   wrapper.appendChild(bubble);
   chat.appendChild(wrapper);
 
   chat.scrollTop = chat.scrollHeight;
 
-  return bubble;
+  return { bubble, content };
 }
 
 /* DISCLOSURE */
-function addDisclosure(bubble, position) {
+function addDisclosureAnimated(bubble, position = "bottom") {
   const d = document.createElement("div");
   d.className = "disclosure";
   d.innerText = "Sponsored content";
 
+  d.style.opacity = "0";
+  d.style.transition = "opacity 0.5s";
+
   if (position === "top") {
-    bubble.prepend(d);
+    bubble.insertBefore(d, bubble.firstChild);
   } else {
     bubble.appendChild(d);
   }
+
+  setTimeout(() => d.style.opacity = "1", 50);
 }
 
 /* PRODUCT */
-function addProduct(bubble) {
-  const el = document.createElement("div");
-  el.innerHTML = `
-    <div class="product-title">🔥 Best choice</div>
+function addProductCard(bubble) {
+  const container = document.createElement("div");
+  container.className = "product";
+
+  container.innerHTML = `
+    <div class="product-title">🔥 Universal (best balance of style + comfort)</div>
+    <div class="product-sub">🏆 Best overall</div>
+
     <div class="product-card">
-      <div class="product-name">New Balance 1906R</div>
+      <div class="product-img">
+        <img src="images/shoes.jpg" />
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">New Balance 1906R Trainer</div>
+        <div class="product-price">€160.00</div>
+        <div class="product-rating">⭐ 4.5 (843)</div>
+      </div>
     </div>
   `;
-  bubble.appendChild(el);
+
+  bubble.appendChild(container);
+}
+
+/* TYPING */
+function typingEffect(contentEl, text, callback) {
+  let i = 0;
+
+  const interval = setInterval(() => {
+    contentEl.innerHTML = text.slice(0, i);
+    i++;
+    chat.scrollTop = chat.scrollHeight;
+
+    if (i > text.length) {
+      clearInterval(interval);
+      if (callback) callback();
+    }
+  }, 18);
 }
 
 /* FLOW */
 let step = 0;
 
-/* START */
-startBtn.addEventListener("click", () => {
-  intro.classList.add("hide");
+function nextStep() {
+  step++;
 
-  setTimeout(() => {
-    // вставляем текст в input
-    input.value = "Hey, can you suggest good running shoes?";
-  }, 800);
-});
+  if (step === 1) {
 
-/* SEND BUTTON */
-sendBtn.addEventListener("click", () => {
+    const userText = input.value;
+    if (!userText.trim()) return;
 
-  // STEP 1 → отправка сообщения
-  if (step === 0) {
-    const text = input.value;
-
-    createMessage(text, "user");
+    createMessage(userText, "user");
     input.value = "";
 
-    const aiText = `
-I’d really suggest the New Balance 1906R. They combine comfort, support, and clean design — perfect for active people.
-`;
+    const text = `Hey, I’ve been thinking about what could really suit you...`;
 
-    const bubble = createMessage("", "ai");
+    const { bubble, content } = createMessage("", "ai");
 
-    setTimeout(() => {
-      bubble.innerHTML = aiText;
-      addProduct(bubble);
-
-      if (condition === "A") {
-        addDisclosure(bubble, "top");
-      } else {
-        addDisclosure(bubble, "bottom");
-      }
-
-    }, 500);
-
-    step = 1;
+    if (condition === "A") {
+      addDisclosureAnimated(bubble, "top");
+      typingEffect(content, text, () => {
+        addProductCard(bubble);
+      });
+    } else {
+      typingEffect(content, text, () => {
+        addProductCard(bubble);
+        setTimeout(() => addDisclosureAnimated(bubble, "bottom"), 300);
+      });
+    }
   }
 
-  // STEP 2 → переход
-  else {
+  else if (step === 2) {
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
-
-});
+}
