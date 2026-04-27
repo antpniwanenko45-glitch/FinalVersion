@@ -353,36 +353,30 @@ body {
 
 @media (max-width: 768px) {
 
-  /* убираем sidebar */
   .sidebar {
     display: none;
   }
 
-  /* фон как в приложении */
   body {
     background: #000;
   }
 
-  /* убираем лишние блоки (Create / Write / Look up) */
   .home-options,
   .start-features,
   .instruction-box {
     display: none !important;
   }
 
-  /* центрируем чат */
   .chat {
     padding: 80px 12px 120px;
     max-width: 100%;
   }
 
-  /* сообщения */
   .bubble {
     max-width: 90%;
     font-size: 14px;
   }
 
-  /* input как в ChatGPT */
   .input-floating {
     left: 10px;
     right: 10px;
@@ -399,7 +393,6 @@ body {
     color: white;
   }
 
-  /* уменьшаем картинку */
   .product-img {
     width: 80px;
     height: 70px;
@@ -417,31 +410,20 @@ body {
 /* 🔒 START SCREEN FIX */
 /* ========================= */
 
-/* запрещаем скролл страницы */
 body {
   overflow: hidden;
 }
 
-/* но разрешаем внутри стартового окна */
 .start-container {
   max-height: 100dvh;
   overflow-y: auto;
   padding-bottom: 80px;
   -webkit-overflow-scrolling: touch;
 }
-/* по умолчанию скрыт (десктоп) */
-.mobile-header {
-  display: none !important;
-}
 
-/* показываем ТОЛЬКО на телефоне */
-@media (max-width: 768px) {
-  .mobile-header {
-    display: flex !important;
-  }
-}
+
 /* ========================= */
-/* 📱 MOBILE HEADER 1:1 */
+/* 📱 MOBILE HEADER */
 /* ========================= */
 
 .mobile-header {
@@ -466,7 +448,6 @@ body {
     z-index: 1000;
   }
 
-  /* ЛЕВАЯ И ПРАВАЯ КНОПКИ */
   .mobile-header .left,
   .mobile-header .right {
     display: flex;
@@ -474,7 +455,6 @@ body {
     gap: 10px;
   }
 
-  /* КРУГЛЫЕ КНОПКИ */
   .mobile-header .left > *,
   .mobile-header .right > * {
     width: 36px;
@@ -491,7 +471,6 @@ body {
     color: white;
   }
 
-  /* ЦЕНТР (YouGPT) */
   .mobile-header .title {
     background: #1c1c1c;
     padding: 6px 18px;
@@ -499,15 +478,15 @@ body {
 
     font-size: 14px;
     font-weight: 500;
-
     color: white;
   }
 
-  /* чтобы чат не залез под header */
   .chat {
     padding-top: 70px;
   }
 }
+
+
 /* ========================= */
 /* 📱 START SCREEN MOBILE FIX */
 /* ========================= */
@@ -547,9 +526,15 @@ body {
   .start-btn {
     width: 100%;
   }
+}
 
-  /* ВАЖНО: возвращаем скролл */
+
+/* ========================= */
+/* 🚨 КРИТИЧЕСКИЙ ФИКС */
+/* ========================= */
+
+@media (max-width: 768px) {
   body {
-    overflow: auto;
+    overflow: auto !important;
   }
 }
