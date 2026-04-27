@@ -404,13 +404,19 @@ body {
 /* ✅ CLEAN START SCREEN FIX */
 /* ========================= */
 
+/* 🔥 ВАЖНО: делаем именно экран скроллируемым */
 .start-screen {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+
   display: flex;
-  align-items: center;
   justify-content: center;
+
+  overflow-y: auto; /* 🔥 фикс */
+  -webkit-overflow-scrolling: touch; /* 🔥 iPhone smooth scroll */
 }
 
+/* контейнер НЕ должен скроллиться сам */
 .start-container {
   max-width: 720px;
   width: 100%;
