@@ -446,3 +446,20 @@ body {
   transform: translateY(-100%);
   pointer-events: none;
 }
+/* 📱 FIX: scroll для start screen */
+.start-screen {
+  overflow-y: auto;
+}
+
+/* 📱 чтобы кнопка не пряталась */
+.start-container {
+  padding-bottom: 80px;
+}
+
+/* 📱 (опционально) кнопка всегда видна */
+@media (max-width: 768px) {
+  .start-btn {
+    position: sticky;
+    bottom: 20px;
+  }
+}
