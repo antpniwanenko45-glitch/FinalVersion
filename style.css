@@ -529,19 +529,3 @@ body {
     width: 100%;
   }
 }
-/* fix bar */
-.input-inner textarea {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: white;
-  outline: none;
-  resize: none;
-
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 1.4;
-
-  max-height: 120px; /* ограничение как в ChatGPT */
-  overflow-y: auto;
-}
