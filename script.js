@@ -37,10 +37,12 @@ function startExperiment() {
 }
 
 /* INPUT PRE-FILL */
-const input = document.querySelector(".input-inner input");
-
 window.addEventListener("load", () => {
-  input.value = "Hey, can you suggest good running shoes? I run often and stay active.";
+  const input = document.querySelector(".input-inner input");
+
+  if (input) {
+    input.value = "Hey, can you suggest good running shoes? I run often and stay active.";
+  }
 });
 
 /* CHAT LIST */
