@@ -203,9 +203,3 @@ I genuinely feel like they would fit perfectly...
     }
   }
 }
-const textarea = document.querySelector(".input-inner textarea");
-
-textarea.addEventListener("input", () => {
-  textarea.style.height = "auto";
-  textarea.style.height = textarea.scrollHeight + "px";
-});
