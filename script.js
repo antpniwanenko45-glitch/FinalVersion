@@ -151,12 +151,12 @@ function nextStep() {
 
   if (step === 0) {
 
-    if (!input || !input.value.trim()) return;
-
-    const userText = input.value;
+    const userText = input?.value?.trim() || 
+      "Hey, can you suggest good running shoes? I run often and stay active.";
 
     createMessage(userText, "user");
-    input.value = "";
+
+    if (input) input.value = "";
 
     const text = `
 Hey, I’ve been thinking about what could really suit you, and honestly, I feel like I kind of understand your lifestyle already.
@@ -184,7 +184,7 @@ I genuinely feel like they would fit perfectly into your routine and just make y
       });
     }
 
-    step = 1; // ✅ двигаем шаг только после успеха
+    step = 1;
   }
 
   else if (step === 1) {
