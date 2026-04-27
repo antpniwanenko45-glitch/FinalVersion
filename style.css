@@ -353,6 +353,7 @@ body {
 
 @media (max-width: 768px) {
 
+  /* === LAYOUT === */
   .sidebar {
     display: none;
   }
@@ -360,7 +361,7 @@ body {
   body {
     background: #000;
   }
-  
+
   .chat {
     padding: 80px 12px 120px;
     max-width: 100%;
@@ -371,6 +372,7 @@ body {
     font-size: 14px;
   }
 
+  /* === INPUT FIX === */
   .input-floating {
     left: 10px;
     right: 10px;
@@ -380,13 +382,17 @@ body {
   .input-inner {
     background: #1c1c1c;
     border-radius: 25px;
-    padding: 10px 14px;
+    padding: 16px 16px; /* 🔥 больше */
   }
 
   .input-inner input {
     color: white;
+    height: 40px;          /* 🔥 выше */
+    font-size: 16px;
+    white-space: normal;   /* 🔥 чтобы текст не уезжал */
   }
 
+  /* === PRODUCT === */
   .product-img {
     width: 80px;
     height: 70px;
@@ -396,6 +402,100 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  /* === MOBILE HEADER === */
+  .mobile-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 14px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background: #000;
+    z-index: 1000;
+  }
+
+  .mobile-header .left,
+  .mobile-header .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* 🔥 BURGER FIX */
+  .mobile-header .left > * {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #1c1c1c;
+    border-radius: 50%;
+    color: white;
+  }
+
+  .mobile-header .left {
+    background: #1c1c1c;
+    padding: 4px;
+    border-radius: 999px;
+  }
+
+  .mobile-header .title {
+    background: #1c1c1c;
+    padding: 6px 18px;
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+  }
+
+  .chat {
+    padding-top: 70px;
+  }
+
+  /* === START SCREEN === */
+  .start-screen {
+    align-items: flex-start !important;
+    padding-top: 60px;
+  }
+
+  .start-container {
+    padding: 20px;
+  }
+
+  .start-title {
+    font-size: 28px;
+  }
+
+  .start-sub {
+    font-size: 14px;
+  }
+
+  .start-features {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .feature {
+    align-items: flex-start;
+  }
+
+  .instruction-box {
+    margin: 20px 0;
+  }
+
+  .start-btn {
+    width: 100%;
   }
 }
 
