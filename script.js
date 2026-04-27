@@ -50,7 +50,13 @@ const chats = [
   "Running tips",
   "Best sneakers 2025",
   "Gym plan",
-  "Marketing ideas"
+  "Marketing ideas",
+  "Healthy recipes",
+  "Home workout plan",
+  "Startup ideas",
+  "Productivity hacks",
+  "Best cafes Vienna",
+  "Book recommendations"
 ];
 
 const chatList = document.getElementById("chats");
