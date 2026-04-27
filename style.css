@@ -347,3 +347,102 @@ body {
   color: #10a37f;
   font-weight: 600;
 }
+/* ========================= */
+/* 📱 MOBILE VERSION */
+/* ========================= */
+
+.mobile-header {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  /* HEADER */
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 16px;
+    background: #000;
+    color: white;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+  }
+
+  .mobile-header .title {
+    font-weight: 600;
+  }
+
+  /* УБИРАЕМ SIDEBAR */
+  .sidebar {
+    display: none;
+  }
+
+  /* ФОН */
+  body {
+    background: #000;
+  }
+
+  /* ЧАТ */
+  .chat {
+    padding: 70px 10px 120px;
+    max-width: 100%;
+  }
+
+  /* СООБЩЕНИЯ */
+  .bubble {
+    max-width: 90%;
+    font-size: 14px;
+  }
+
+  /* INPUT */
+  .input-floating {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .input-inner {
+    border-radius: 20px;
+    padding: 10px 12px;
+  }
+
+  /* START SCREEN */
+  .start-container {
+    padding: 20px;
+  }
+
+  .start-title {
+    font-size: 26px;
+  }
+
+  .start-sub {
+    font-size: 14px;
+  }
+
+  .start-features {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .instruction-box {
+    padding: 16px;
+    margin: 15px 10px;
+  }
+
+  .start-btn {
+    width: 100%;
+  }
+}
+
+/* 🔥 FIX КЛИКОВ */
+.start-screen.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
