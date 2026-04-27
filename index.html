@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<!-- INTRO SCREEN -->
+<!-- INTRO -->
 <div class="intro" id="intro">
   <div class="intro-content">
     <h1>Research Study</h1>
@@ -16,7 +16,6 @@
       This study investigates how people interact with conversational systems and product recommendations.
     </p>
 
-    <!-- ИНСТРУКЦИЯ -->
     <div class="intro-instructions">
       <strong>Important:</strong><br>
       Click the green button to start the chat.<br>
@@ -30,7 +29,6 @@
 
 <div class="app">
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="logo">YourGPT</div>
 
@@ -44,20 +42,19 @@
     <div class="chats" id="chats"></div>
   </div>
 
-  <!-- Main -->
   <div class="main">
     <div class="chat" id="chat"></div>
   </div>
 
 </div>
 
-<!-- FLOATING INPUT -->
+<!-- INPUT -->
 <div class="input-floating">
   <div class="input-inner">
     <span class="plus">+</span>
-    <input type="text" placeholder="Ask anything..." />
+    <input id="userInput" type="text" />
     <span class="mic">🎤</span>
-    <button onclick="nextStep()">↑</button>
+    <button id="sendBtn">↑</button>
   </div>
 </div>
 
