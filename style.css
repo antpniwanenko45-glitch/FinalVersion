@@ -440,3 +440,71 @@ body {
     display: flex !important;
   }
 }
+/* ========================= */
+/* 📱 MOBILE HEADER 1:1 */
+/* ========================= */
+
+.mobile-header {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+
+  .mobile-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 14px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background: #000;
+    z-index: 1000;
+  }
+
+  /* ЛЕВАЯ И ПРАВАЯ КНОПКИ */
+  .mobile-header .left,
+  .mobile-header .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* КРУГЛЫЕ КНОПКИ */
+  .mobile-header .left > *,
+  .mobile-header .right > * {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #1c1c1c;
+    border-radius: 50%;
+
+    font-size: 16px;
+    color: white;
+  }
+
+  /* ЦЕНТР (YouGPT) */
+  .mobile-header .title {
+    background: #1c1c1c;
+    padding: 6px 18px;
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: white;
+  }
+
+  /* чтобы чат не залез под header */
+  .chat {
+    padding-top: 70px;
+  }
+}
