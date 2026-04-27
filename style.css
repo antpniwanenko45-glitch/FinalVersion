@@ -410,14 +410,23 @@ body {
 /* 🔒 START SCREEN FIX */
 /* ========================= */
 
-body {
+/* блокируем общий скролл */
+html, body {
+  height: 100%;
   overflow: hidden;
 }
 
+/* фиксируем экран */
+.start-screen {
+  height: 100dvh;
+  display: flex;
+}
+
+/* внутренний скролл */
 .start-container {
-  max-height: 100dvh;
+  height: 100%;
   overflow-y: auto;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -525,16 +534,5 @@ body {
 
   .start-btn {
     width: 100%;
-  }
-}
-
-
-/* ========================= */
-/* 🚨 КРИТИЧЕСКИЙ ФИКС */
-/* ========================= */
-
-@media (max-width: 768px) {
-  body {
-    overflow: auto !important;
   }
 }
