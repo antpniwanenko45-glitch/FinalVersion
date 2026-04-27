@@ -429,3 +429,14 @@ body {
   padding-bottom: 80px;
   -webkit-overflow-scrolling: touch;
 }
+/* по умолчанию скрыт (десктоп) */
+.mobile-header {
+  display: none !important;
+}
+
+/* показываем ТОЛЬКО на телефоне */
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex !important;
+  }
+}
