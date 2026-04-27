@@ -1,6 +1,20 @@
 const chat = document.getElementById("chat");
 
-/* ---------- SMART RANDOMIZER (shuffle bag) ---------- */
+/* INTRO */
+const startBtn = document.getElementById("startBtn");
+const intro = document.getElementById("intro");
+
+if (startBtn && intro) {
+  startBtn.addEventListener("click", () => {
+    intro.classList.add("hide");
+
+    setTimeout(() => {
+      nextStep();
+    }, 800);
+  });
+}
+
+/* RANDOMIZER */
 function getCondition() {
   let bag = JSON.parse(localStorage.getItem("conditionBag"));
 
@@ -21,7 +35,7 @@ function getCondition() {
 
 const condition = getCondition();
 
-/* ---------- RANDOM SIDEBAR ---------- */
+/* SIDEBAR */
 const chats = [
   "Running tips",
   "Best sneakers 2025",
@@ -43,7 +57,7 @@ if (chatList) {
   });
 }
 
-/* ---------- CREATE MESSAGE ---------- */
+/* MESSAGE */
 function createMessage(text, type) {
   const wrapper = document.createElement("div");
   wrapper.className = "message " + type;
@@ -63,7 +77,7 @@ function createMessage(text, type) {
   return { bubble, content };
 }
 
-/* ---------- DISCLOSURE ---------- */
+/* DISCLOSURE */
 function addDisclosureAnimated(bubble, position = "bottom") {
   const d = document.createElement("div");
   d.className = "disclosure";
@@ -83,7 +97,7 @@ function addDisclosureAnimated(bubble, position = "bottom") {
   }, 50);
 }
 
-/* ---------- PRODUCT CARD ---------- */
+/* PRODUCT */
 function addProductCard(bubble) {
   const container = document.createElement("div");
   container.className = "product";
@@ -108,7 +122,7 @@ function addProductCard(bubble) {
   bubble.appendChild(container);
 }
 
-/* ---------- TYPING ---------- */
+/* TYPING */
 function typingEffect(contentEl, text, callback) {
   let i = 0;
 
@@ -124,7 +138,7 @@ function typingEffect(contentEl, text, callback) {
   }, 18);
 }
 
-/* ---------- FLOW ---------- */
+/* FLOW */
 let step = 0;
 
 function nextStep() {
@@ -149,24 +163,16 @@ From what I see, they combine comfort, support, and a really clean design — ex
 I genuinely feel like they would fit perfectly into your routine and just make your runs more enjoyable.
 `;
 
-    // CONDITION A
     if (condition === "A") {
       const { bubble, content } = createMessage("", "ai");
-
       addDisclosureAnimated(bubble, "top");
-
       typingEffect(content, text, () => {
         addProductCard(bubble);
       });
-    }
-
-    // CONDITION B
-    else {
+    } else {
       const { bubble, content } = createMessage("", "ai");
-
       typingEffect(content, text, () => {
         addProductCard(bubble);
-
         setTimeout(() => {
           addDisclosureAnimated(bubble, "bottom");
         }, 300);
@@ -177,17 +183,4 @@ I genuinely feel like they would fit perfectly into your routine and just make y
   else if (step === 2) {
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
-}
-/* ---------- INTRO LOGIC ---------- */
-const startBtn = document.getElementById("startBtn");
-const intro = document.getElementById("intro");
-
-if (startBtn) {
-  startBtn.addEventListener("click", () => {
-    intro.classList.add("hide");
-
-    setTimeout(() => {
-      nextStep();
-    }, 800);
-  });
 }
