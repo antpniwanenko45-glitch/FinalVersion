@@ -145,7 +145,6 @@ function typingEffect(contentEl, text, callback) {
 /* FLOW */
 let step = 0;
 let canProceed = false;
-let canProceed = false;
 
 function nextStep() {
 
@@ -179,14 +178,14 @@ I genuinely feel like they would fit perfectly...
 
       typingEffect(content, text, () => {
         addProductCard(bubble);
-        canProceed = true; // ✅ РАЗРЕШАЕМ ДАЛЬШЕ
+        canProceed = true;
       });
 
     } else {
       typingEffect(content, text, () => {
         addProductCard(bubble);
         setTimeout(() => addDisclosureAnimated(bubble, "bottom"), 300);
-        canProceed = true; // ✅ РАЗРЕШАЕМ
+        canProceed = true;
       });
     }
 
@@ -195,8 +194,12 @@ I genuinely feel like they would fit perfectly...
 
   else if (step === 1) {
 
-    if (!canProceed) return; // ⛔ блокируем ранний клик
+    if (!canProceed) return;
 
-    window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
+    if (condition === "A") {
+      window.location.href = "https://LINK-FOR-UPFRONT";
+    } else {
+      window.location.href = "https://LINK-FOR-LATE";
+    }
   }
 }
