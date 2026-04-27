@@ -228,18 +228,20 @@ body {
 
 /* START SCREEN */
 .start-screen {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom, #f7f7f7, #ececec);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: transform 0.8s ease;
-}
+  position: relative;
+  width: 100%;
+  min-height: 100dvh; /*  */
 
-.start-screen.hidden {
-  transform: translateY(-100%);
+  background: linear-gradient(to bottom, #f7f7f7, #ececec);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ❗ важно */
+
+  padding: 40px 0;
+  overflow-y: auto;
+
+  z-index: 9999;
 }
 
 .start-container {
@@ -479,4 +481,14 @@ body {
     position: sticky;
     bottom: 20px;
   }
+}
+/* FIX для мобильных */
+html, body {
+  height: 100%;
+}
+
+.start-container {
+  padding: 20px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: 80px;
 }
