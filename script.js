@@ -145,7 +145,6 @@ function typingEffect(contentEl, text, callback) {
 /* FLOW */
 let step = 0;
 let canProceed = false;
-let canProceed = false;
 
 function nextStep() {
 
