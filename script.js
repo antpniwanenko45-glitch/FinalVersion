@@ -187,7 +187,7 @@ I genuinely feel like they would fit perfectly into your routine and just make y
     step = 1; // ✅ двигаем шаг только после успеха
   }
 
-  else if (step === 2) {
+  else if (step === 1) {
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
 }
