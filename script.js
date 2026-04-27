@@ -156,7 +156,17 @@ function nextStep() {
     createMessage(userText, "user");
     input.value = "";
 
-    const text = `Hey, I’ve been thinking about what could really suit you...`;
+    const text = `
+Hey, I’ve been thinking about what could really suit you, and honestly, I feel like I kind of understand your lifestyle already.
+
+Since you run quite often and stay active, you need something that actually supports you and feels right every time you go out.
+
+I’d really suggest taking a look at the New Balance 1906R. They’ve recently gained a lot of attention, and people already say really positive things about them.
+
+From what I see, they combine comfort, support, and a really clean design — exactly what someone like you would appreciate.
+
+I genuinely feel like they would fit perfectly into your routine and just make your runs more enjoyable.
+`;
 
     const { bubble, content } = createMessage("", "ai");
 
