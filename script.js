@@ -147,11 +147,9 @@ let step = 0;
 
 function nextStep() {
 
-  const input = document.querySelector(".input-inner input"); // ✅ ВОТ ЭТО ФИКС
+  const input = document.querySelector(".input-inner input");
 
-  step++;
-
-  if (step === 1) {
+  if (step === 0) {
 
     if (!input || !input.value.trim()) return;
 
@@ -185,6 +183,8 @@ I genuinely feel like they would fit perfectly into your routine and just make y
         setTimeout(() => addDisclosureAnimated(bubble, "bottom"), 300);
       });
     }
+
+    step = 1; // ✅ двигаем шаг только после успеха
   }
 
   else if (step === 2) {
