@@ -144,6 +144,8 @@ function typingEffect(contentEl, text, callback) {
 
 /* FLOW */
 let step = 0;
+let canProceed = false;
+let canProceed = false;
 
 function nextStep() {
 
@@ -159,28 +161,32 @@ function nextStep() {
     if (input) input.value = "";
 
     const text = `
-Hey, I’ve been thinking about what could really suit you, and honestly, I feel like I kind of understand your lifestyle already.
+Hey, I’ve been thinking about what could really suit you...
 
-Since you run quite often and stay active, you need something that actually supports you and feels right every time you go out.
+Since you run quite often and stay active...
 
-I’d really suggest taking a look at the New Balance 1906R. They’ve recently gained a lot of attention, and people already say really positive things about them.
+I’d really suggest taking a look at the New Balance 1906R...
 
-From what I see, they combine comfort, support, and a really clean design — exactly what someone like you would appreciate.
+From what I see, they combine comfort...
 
-I genuinely feel like they would fit perfectly into your routine and just make your runs more enjoyable.
+I genuinely feel like they would fit perfectly...
 `;
 
     const { bubble, content } = createMessage("", "ai");
 
     if (condition === "A") {
       addDisclosureAnimated(bubble, "top");
+
       typingEffect(content, text, () => {
         addProductCard(bubble);
+        canProceed = true; // ✅ РАЗРЕШАЕМ ДАЛЬШЕ
       });
+
     } else {
       typingEffect(content, text, () => {
         addProductCard(bubble);
         setTimeout(() => addDisclosureAnimated(bubble, "bottom"), 300);
+        canProceed = true; // ✅ РАЗРЕШАЕМ
       });
     }
 
@@ -188,6 +194,9 @@ I genuinely feel like they would fit perfectly into your routine and just make y
   }
 
   else if (step === 1) {
+
+    if (!canProceed) return; // ⛔ блокируем ранний клик
+
     window.location.href = "https://YOUR-SURVEY-LINK?condition=" + condition;
   }
 }
