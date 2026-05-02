@@ -166,15 +166,13 @@ function nextStep() {
     if (input) input.value = "";
 
     const text = `
-Hey, I’ve been thinking about what could really suit you...
+Hey! Based on your interest in running and staying active, comfort and support are likely important for you.
 
-Since you run quite often and stay active...
+One option you could look at is the New Balance 1906R. It’s generally known for its comfort, which can help during longer runs, and it can also be used for everyday activities.
 
-I’d really suggest taking a look at the New Balance 1906R...
+People with a similar activity level often like it because it offers a good balance between comfort and style without feeling too heavy.
 
-From what I see, they combine comfort...
-
-I genuinely feel like they would fit perfectly...
+It could be a good option if you're looking for something you can use both for running and daily wear.
 `;
 
     const { bubble, content } = createMessage("", "ai");
