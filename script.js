@@ -1,8 +1,7 @@
 const chat = document.getElementById("chat");
 
-/* =========================
-   USER IDENTIFIER (ADDED)
-   =========================
+/* 
+   USER IDENTIFIER 
    A unique identifier is generated once per user.
    It is stored in localStorage to persist across sessions.
 */
@@ -19,9 +18,8 @@ function getUserId() {
 
 const userId = getUserId();
 
-/* =========================
-   GOOGLE SHEETS ENDPOINT (ADDED)
-   =========================
+/* 
+   GOOGLE SHEETS ENDPOINT 
    This endpoint receives prompt data via POST request.
 */
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLCgjCe8ZKyaU8NzWy5nZeOuh0mFqFph3o2e54QDgWNUMOVkCiQjxWtTsB163-ZA/exec";
@@ -185,9 +183,8 @@ function nextStep() {
 
     if (input) input.value = "";
 
-    /* =========================
-       DATA LOGGING (ADDED)
-       =========================
+    /* 
+       DATA LOGGING 
        The user prompt, condition, and unique ID
        are sent to Google Sheets.
     */
@@ -200,7 +197,7 @@ function nextStep() {
         timestamp: new Date().toISOString()
       })
     });
-
+/* output */
     const text = `
 Hey! Based on your interest in running and staying active, comfort and support are likely important for you.
 
@@ -234,9 +231,8 @@ It could be a good option if you're looking for something you can use both for r
 
     if (!canProceed) return;
 
-    /* =========================
-       REDIRECT WITH ID (ADDED)
-       =========================
+    /* 
+       REDIRECT WITH ID 
        The same userId is passed to QuestionPro
        to link prompts with survey responses.
     */
@@ -254,14 +250,14 @@ const sidebar = document.querySelector(".sidebar");
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
-
-/* === CLICK (open / close) === */
+/* Burger settings for mobile devices */
+/*  CLICK (open / close)  */
 if (burger && sidebar) {
   burger.addEventListener("click", () => {
     sidebar.classList.toggle("open");
   });
 
-  /* === SWIPE === */
+  /*  SWIPE  */
   sidebar.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
