@@ -5,13 +5,13 @@ body {
   color: #e5e5e5;
 }
 
-/* Layout */
+/* LAYOUT */
 .app {
   display: flex;
   height: 100vh;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 .sidebar {
   width: 260px;
   background: #0f0f0f;
@@ -51,7 +51,7 @@ body {
   background: #1f1f1f;
 }
 
-/* Main */
+/* MAIN */
 .main {
   flex: 1;
   display: flex;
@@ -64,7 +64,7 @@ body {
   padding: 40px 20px 120px;
 }
 
-/* Messages */
+/* MESSAGES */
 .message {
   display: flex;
   margin-bottom: 24px;
@@ -311,9 +311,8 @@ body {
   border: none;
   cursor: pointer;
 }
-/* ========================= */
-/* 🚨 INSTRUCTION BOX */
-/* ========================= */
+
+/* INSTRUCTION BOX */
 
 .instruction-box {
   background: #fff8e1;
@@ -333,7 +332,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* Список */
+/* LIST */
 .instruction-list {
   margin: 0;
   padding-left: 18px;
@@ -342,18 +341,16 @@ body {
   line-height: 1.6;
 }
 
-/* Зеленый акцент */
+/* GREEN COLLOR FOR INSTRUCTIONS */
 .green {
   color: #10a37f;
   font-weight: 600;
 }
-/* ========================= */
-/* 📱 MOBILE FULL UI (1:1) */
-/* ========================= */
+/* MOBILE  UI  */
 
 @media (max-width: 768px) {
 
-  /* === LAYOUT === */
+  /* LAYOUT */
   .sidebar {
     position: fixed;
     top: 0;
@@ -388,7 +385,7 @@ body {
     font-size: 14px;
   }
 
-  /* === INPUT FIX === */
+  /*  INPUT FIX  */
   .input-floating {
     left: 10px;
     right: 10px;
@@ -408,7 +405,7 @@ body {
     white-space: normal;
   }
 
-  /* === PRODUCT === */
+  /*  PRODUCT  */
   .product-img {
     width: 80px;
     height: 70px;
@@ -420,7 +417,7 @@ body {
     object-fit: contain;
   }
 
-  /* === MOBILE HEADER === */
+  /*  MOBILE HEADER  */
   .mobile-header {
     display: flex !important;
     align-items: center;
@@ -444,7 +441,7 @@ body {
     gap: 10px;
   }
 
-  /* 🔥 BURGER FIX */
+  /*  BURGER FIX */
   .mobile-header .left > * {
     width: 44px;
     height: 44px;
@@ -479,7 +476,7 @@ body {
     padding-top: 70px;
   }
 
-  /* === START SCREEN === */
+  /*  START SCREEN  */
   .start-screen {
     align-items: flex-start !important;
     padding-top: 60px;
@@ -516,11 +513,11 @@ body {
 }
 
 
-/* ========================= */
-/* ✅ CLEAN START SCREEN FIX */
-/* ========================= */
 
-/* 🔥 ВАЖНО: делаем именно экран скроллируемым */
+/*  CLEAN START SCREEN FIX */
+
+
+/* SCROL SCREEN */
 .start-screen {
   position: fixed;
   inset: 0;
@@ -532,7 +529,7 @@ body {
   -webkit-overflow-scrolling: touch; /* 🔥 iPhone smooth scroll */
 }
 
-/* контейнер НЕ должен скроллиться сам */
+/* CONTAINER WILL NOT BE SCROLLED */
 .start-container {
   max-width: 720px;
   width: 100%;
@@ -540,9 +537,8 @@ body {
 }
 
 
-/* ========================= */
-/* 📱 MOBILE HEADER */
-/* ========================= */
+
+/* MOBILE HEADER */
 
 .mobile-header {
   display: none !important;
@@ -605,9 +601,9 @@ body {
 }
 
 
-/* ========================= */
-/* 📱 START SCREEN MOBILE FIX */
-/* ========================= */
+
+/* START SCREEN MOBILE FIX */
+
 
 @media (max-width: 768px) {
 
