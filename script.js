@@ -36,14 +36,6 @@ function startExperiment() {
   }, 800);
 }
 
-/* INPUT PRE-FILL */
-window.addEventListener("load", () => {
-  const input = document.querySelector(".input-inner input");
-
-  if (input) {
-    input.value = "Hey, can you suggest good running shoes? I run often and stay active.";
-  }
-});
 
 /* CHAT LIST */
 const chats = [
@@ -158,8 +150,9 @@ function nextStep() {
 
   if (step === 0) {
 
-    const userText = input?.value?.trim() || 
-      "Hey, can you suggest good running shoes? I run often and stay active.";
+    const userText = input?.value?.trim();
+
+if (!userText) return; // If input is empty then 0 result
 
     createMessage(userText, "user");
 
