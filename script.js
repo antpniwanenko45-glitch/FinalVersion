@@ -241,7 +241,7 @@ It could be a good option if you're looking for something you can use both for r
        to link prompts with survey responses.
     */
     if (condition === "A") {
-      window.location.href = "https://LINK-FOR-UPFRONT?userId=" + userId;
+      window.location.href = "https://antpniwanenko45.questionpro.com/t/AdLyVZ8vGh?userId=" + userId;
     } else {
       window.location.href = "https://LINK-FOR-LATE?userId=" + userId;
     }
