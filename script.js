@@ -1,5 +1,32 @@
 const chat = document.getElementById("chat");
 
+/* =========================
+   USER IDENTIFIER (ADDED)
+   =========================
+   A unique identifier is generated once per user.
+   It is stored in localStorage to persist across sessions.
+*/
+function getUserId() {
+  let id = localStorage.getItem("userId");
+
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem("userId", id);
+  }
+
+  return id;
+}
+
+const userId = getUserId();
+
+/* =========================
+   GOOGLE SHEETS ENDPOINT (ADDED)
+   =========================
+   This endpoint receives prompt data via POST request.
+*/
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLCgjCe8ZKyaU8NzWy5nZeOuh0mFqFph3o2e54QDgWNUMOVkCiQjxWtTsB163-ZA/exec";
+
+
 /* CONDITION */
 function getCondition() {
   let bag;
@@ -152,11 +179,27 @@ function nextStep() {
 
     const userText = input?.value?.trim();
 
-if (!userText) return; // If input is empty then 0 result
+    if (!userText) return; // If input is empty then 0 result
 
     createMessage(userText, "user");
 
     if (input) input.value = "";
+
+    /* =========================
+       DATA LOGGING (ADDED)
+       =========================
+       The user prompt, condition, and unique ID
+       are sent to Google Sheets.
+    */
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        userId: userId,
+        prompt: userText,
+        condition: condition,
+        timestamp: new Date().toISOString()
+      })
+    });
 
     const text = `
 Hey! Based on your interest in running and staying active, comfort and support are likely important for you.
@@ -191,13 +234,20 @@ It could be a good option if you're looking for something you can use both for r
 
     if (!canProceed) return;
 
+    /* =========================
+       REDIRECT WITH ID (ADDED)
+       =========================
+       The same userId is passed to QuestionPro
+       to link prompts with survey responses.
+    */
     if (condition === "A") {
-      window.location.href = "https://LINK-FOR-UPFRONT";
+      window.location.href = "https://LINK-FOR-UPFRONT?userId=" + userId;
     } else {
-      window.location.href = "https://LINK-FOR-LATE";
+      window.location.href = "https://LINK-FOR-LATE?userId=" + userId;
     }
   }
 }
+
 const burger = document.getElementById("burger");
 const sidebar = document.querySelector(".sidebar");
 
@@ -205,7 +255,7 @@ let startX = 0;
 let currentX = 0;
 let isDragging = false;
 
-/* === CLICK (открыть / закрыть) === */
+/* === CLICK (open / close) === */
 if (burger && sidebar) {
   burger.addEventListener("click", () => {
     sidebar.classList.toggle("open");
@@ -232,7 +282,7 @@ if (burger && sidebar) {
     isDragging = false;
 
     if (currentX - startX < -50) {
-      sidebar.classList.remove("open"); // закрыть
+      sidebar.classList.remove("open");
     }
 
     sidebar.style.transform = "";
