@@ -760,9 +760,14 @@ body {
 
 #moderator-screen {
   opacity: 0;
-  transition: opacity 0.5s ease;
+  visibility: hidden;
+
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
 }
 
 #moderator-screen.visible {
   opacity: 1;
+  visibility: visible;
 }
