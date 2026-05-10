@@ -105,16 +105,14 @@ function submitModeratorSurvey() {
     })
   });
 
-  // HIDE QUESTIONNAIRE
-  const survey = document.getElementById("moderator-screen");
+// GARAGE DOOR TRANSITION
+const survey = document.getElementById("moderator-screen");
 
-  survey.classList.add("hidden");
+survey.classList.add("hidden");
 
-  setTimeout(() => {
-
-    survey.style.display = "none";
-
-  }, 800);
+setTimeout(() => {
+  survey.style.display = "none";
+}, 800);
 }
 
 
