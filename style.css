@@ -825,15 +825,26 @@ body {
 /* QUESTIONNAIRE FADE */
 
 #moderator-screen {
+
   opacity: 0;
   visibility: hidden;
 
+  pointer-events: none;
+
+  transform: translateY(100%);
+
   transition:
     opacity 0.5s ease,
+    transform 0.8s ease,
     visibility 0.5s ease;
 }
 
 #moderator-screen.visible {
+
   opacity: 1;
   visibility: visible;
+
+  pointer-events: auto;
+
+  transform: translateY(0);
 }
