@@ -246,6 +246,7 @@ body {
 
 .start-screen.hidden {
   transform: translateY(-100%);
+  pointer-events: none; /* ← добавь это */
 }
 
 .start-container {
