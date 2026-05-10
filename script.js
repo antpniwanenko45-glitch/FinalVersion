@@ -63,13 +63,8 @@ function startExperiment() {
   const intro = document.getElementById("start-screen");
   const survey = document.getElementById("moderator-screen");
 
-  // SHOW SURVEY
-  survey.style.display = "flex";
-
-  // SMALL DELAY FOR FADE
-  setTimeout(() => {
-    survey.classList.add("visible");
-  }, 50);
+  // PRELOAD SURVEY
+  survey.classList.add("visible");
 
   // HIDE INTRO
   intro.classList.add("hidden");
@@ -78,7 +73,6 @@ function startExperiment() {
     intro.style.display = "none";
   }, 800);
 }
-
 /* MODERATOR QUESTIONNAIRE */
 function submitModeratorSurvey() {
 
