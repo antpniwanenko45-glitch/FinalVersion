@@ -514,28 +514,6 @@ body {
 
 
 
-/*  CLEAN START SCREEN FIX */
-
-
-/* SCROL SCREEN */
-.start-screen {
-  position: fixed;
-  inset: 0;
-
-  display: flex;
-  justify-content: center;
-
-  overflow-y: auto; /* 🔥 фикс */
-  -webkit-overflow-scrolling: touch; /* 🔥 iPhone smooth scroll */
-}
-
-/* CONTAINER WILL NOT BE SCROLLED */
-.start-container {
-  max-width: 720px;
-  width: 100%;
-  padding: 20px;
-}
-
 
 
 /* MOBILE HEADER */
