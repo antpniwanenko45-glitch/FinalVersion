@@ -328,9 +328,9 @@ body {
   background: #fff8e1;
   border: 2px solid #facc15;
   border-radius: 14px;
-  padding: 20px;
-  margin: 20px auto 25px;
-  max-width: 650px;
+  padding: 14px 18px;
+  margin: 14px auto 18px;
+  max-width: 620px;
 
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
@@ -534,7 +534,7 @@ body {
 
 /* CONTAINER WILL NOT BE SCROLLED */
 .start-container {
-  max-width: 720px;
+  max-width: 680px;
   width: 100%;
   padding: 20px;
 }
