@@ -423,29 +423,23 @@ body {
     object-fit: contain;
   }
 
-  /*  MOBILE HEADER  */
-  .mobile-header {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
+ /*  MOBILE HEADER  */
+.mobile-header {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
 
-    padding: 10px 14px;
+  padding: 10px 14px;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
-    background: #000;
-    z-index: 1000;
-  }
+  background: #000;
 
-  .mobile-header .left,
-  .mobile-header .right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  z-index: 1;
+}
 
   /*  BURGER FIX */
   .mobile-header .left > * {
