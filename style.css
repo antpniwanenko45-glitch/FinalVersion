@@ -479,15 +479,15 @@ body {
   /*  START SCREEN  */
   .start-screen {
     align-items: flex-start !important;
-    padding-top: 60px;
+    padding-top: 12px;
   }
 
   .start-container {
-    padding: 20px;
+    padding: 8px 10px 20px;
   }
 
   .start-title {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   .start-sub {
@@ -692,7 +692,7 @@ body {
 
   align-items: center;
 
-  padding: 26px 10px;
+  padding: 14px 8px;
 
   border-bottom: 1px solid #f0f0f0;
 
