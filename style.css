@@ -351,14 +351,6 @@ body {
   line-height: 1.6;
 }
 
-/* NON-NUMBERED EXAMPLE */
-.instruction-example {
-  margin: 10px 0;
-  text-align: center;
-  font-style: italic;
-  list-style: none;
-  color: #444;
-}
 
 /* GREEN COLLOR FOR INSTRUCTIONS */
 .green {
