@@ -61,14 +61,11 @@ const condition = getCondition();
 function startExperiment() {
 
   const intro = document.getElementById("start-screen");
-  const survey = document.getElementById("moderator-screen");
 
-  // PRELOAD SURVEY
-  survey.classList.add("visible");
-
-  // HIDE INTRO
+  // GARAGE DOOR ANIMATION
   intro.classList.add("hidden");
 
+  // REMOVE AFTER ANIMATION
   setTimeout(() => {
     intro.style.display = "none";
   }, 800);
