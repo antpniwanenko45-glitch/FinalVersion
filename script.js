@@ -63,19 +63,19 @@ function startExperiment() {
   const intro = document.getElementById("start-screen");
   const survey = document.getElementById("moderator-screen");
 
-  // SHOW QUESTIONNAIRE FIRST
+  // SHOW SURVEY
   survey.style.display = "flex";
 
-  // FORCE BROWSER RENDER
-  void survey.offsetWidth;
+  // SMALL DELAY FOR FADE
+  setTimeout(() => {
+    survey.classList.add("visible");
+  }, 50);
 
-  // HIDE INTRO WITH ANIMATION
+  // HIDE INTRO
   intro.classList.add("hidden");
 
   setTimeout(() => {
-
     intro.style.display = "none";
-
   }, 800);
 }
 
