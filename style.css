@@ -741,17 +741,51 @@ body {
 @media (max-width: 768px) {
 
   .survey-box {
-    overflow-x: auto;
+    overflow: visible;
+    border-radius: 14px;
   }
 
-  .likert-header,
+  .likert-header {
+    display: none;
+  }
+
   .likert-question-row {
 
-    min-width: 900px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    padding: 16px 14px;
   }
 
   .likert-question-text {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1.4;
+    padding-right: 0;
+  }
+
+  .likert-question-row label {
+    margin-right: 8px;
+  }
+
+  .likert-question-row::after {
+
+    content:
+      "1  2  3  4  5  6  7";
+
+    font-size: 11px;
+    color: #777;
+
+    letter-spacing: 8px;
+
+    margin-left: 2px;
+  }
+
+  .likert-question-row > label {
+    display: inline-flex;
   }
 
 }
