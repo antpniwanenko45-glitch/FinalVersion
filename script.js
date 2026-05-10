@@ -70,7 +70,9 @@ function startExperiment() {
 
     const moderator = document.getElementById("moderator-screen");
 
-    moderator.style.display = "flex";
+moderator.classList.remove("hidden-screen");
+
+moderator.style.display = "flex";
 
   }, 800);
 }
