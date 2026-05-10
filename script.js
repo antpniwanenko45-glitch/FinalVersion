@@ -62,12 +62,16 @@ function startExperiment() {
 
   const intro = document.getElementById("start-screen");
 
-  // GARAGE DOOR ANIMATION
   intro.classList.add("hidden");
 
-  // REMOVE AFTER ANIMATION
   setTimeout(() => {
+
     intro.style.display = "none";
+
+    const moderator = document.getElementById("moderator-screen");
+
+    moderator.style.display = "flex";
+
   }, 800);
 }
 /* MODERATOR QUESTIONNAIRE */
