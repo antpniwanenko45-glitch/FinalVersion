@@ -22,13 +22,13 @@ const userId = getUserId();
    GOOGLE SHEETS ENDPOINT 
    This endpoint receives prompt data via POST request.
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLCgjCe8ZKyaU8NzWy5nZeOuh0mFqFph3o2e54QDgWNUMOVkCiQjxWtTsB163-ZA/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_71T8v4hVFUAEceQsswgsCyK8OnXKGBYedQQLPvl6znlhMcM17Eb5lcDlVH0-IVA0/exec";
 
 /*
    SECOND GOOGLE SHEETS ENDPOINT
    This endpoint receives moderator questionnaire data.
 */
-const GOOGLE_SCRIPT_URL_SURVEY = "PASTE-YOUR-SECOND-ENDPOINT-HERE";
+
 
 
 /* CONDITION */
@@ -92,7 +92,7 @@ function submitModeratorSurvey() {
   }
 
   // SEND TO SECOND GOOGLE SHEET
-  fetch(GOOGLE_SCRIPT_URL_SURVEY, {
+  fetch(GOOGLE_SCRIPT_URL, {
 
     method: "POST",
 
