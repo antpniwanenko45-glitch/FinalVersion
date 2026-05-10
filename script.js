@@ -61,15 +61,20 @@ const condition = getCondition();
 function startExperiment() {
 
   const intro = document.getElementById("start-screen");
+  const survey = document.getElementById("moderator-screen");
 
+  // SHOW QUESTIONNAIRE FIRST
+  survey.style.display = "flex";
+
+  // FORCE BROWSER RENDER
+  void survey.offsetWidth;
+
+  // HIDE INTRO WITH ANIMATION
   intro.classList.add("hidden");
 
   setTimeout(() => {
 
     intro.style.display = "none";
-
-    // SHOW QUESTIONNAIRE
-    document.getElementById("moderator-screen").style.display = "flex";
 
   }, 800);
 }
