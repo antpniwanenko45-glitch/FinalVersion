@@ -840,3 +840,7 @@ body {
   position: relative;
   z-index: 1;
 }
+
+#moderator-screen {
+  display: none;
+}
