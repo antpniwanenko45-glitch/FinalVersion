@@ -834,7 +834,7 @@ body {
 }
 
 #moderator-screen {
-  z-index: 10001;
+  display: none;
 }
 
 .app {
