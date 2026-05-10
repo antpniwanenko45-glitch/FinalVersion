@@ -62,18 +62,18 @@ function startExperiment() {
 
   const intro = document.getElementById("start-screen");
 
+  const moderator = document.getElementById("moderator-screen");
+
+  // СНАЧАЛА показываем второй экран
+  moderator.classList.remove("hidden-screen");
+  moderator.style.display = "flex";
+
+  // ПОТОМ запускаем анимацию первого
   intro.classList.add("hidden");
 
+  // И только потом удаляем первый экран
   setTimeout(() => {
-
     intro.style.display = "none";
-
-    const moderator = document.getElementById("moderator-screen");
-
-moderator.classList.remove("hidden-screen");
-
-moderator.style.display = "flex";
-
   }, 800);
 }
 /* MODERATOR QUESTIONNAIRE */
