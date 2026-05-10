@@ -24,6 +24,12 @@ const userId = getUserId();
 */
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLCgjCe8ZKyaU8NzWy5nZeOuh0mFqFph3o2e54QDgWNUMOVkCiQjxWtTsB163-ZA/exec";
 
+/*
+   SECOND GOOGLE SHEETS ENDPOINT
+   This endpoint receives moderator questionnaire data.
+*/
+const GOOGLE_SCRIPT_URL_SURVEY = "PASTE-YOUR-SECOND-ENDPOINT-HERE";
+
 
 /* CONDITION */
 function getCondition() {
@@ -53,11 +59,65 @@ const condition = getCondition();
 
 /* START */
 function startExperiment() {
-  const el = document.getElementById("start-screen");
-  el.classList.add("hidden");
+
+  const intro = document.getElementById("start-screen");
+
+  intro.classList.add("hidden");
 
   setTimeout(() => {
-    el.style.display = "none";
+
+    intro.style.display = "none";
+
+    // SHOW QUESTIONNAIRE
+    document.getElementById("moderator-screen").style.display = "flex";
+
+  }, 800);
+}
+
+/* MODERATOR QUESTIONNAIRE */
+function submitModeratorSurvey() {
+
+  const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+  const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+  const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+  const q4 = document.querySelector('input[name="q4"]:checked')?.value;
+  const q5 = document.querySelector('input[name="q5"]:checked')?.value;
+
+  // VALIDATION
+  if (!q1 || !q2 || !q3 || !q4 || !q5) {
+    alert("Please answer all questions.");
+    return;
+  }
+
+  // SEND TO SECOND GOOGLE SHEET
+  fetch(GOOGLE_SCRIPT_URL_SURVEY, {
+
+    method: "POST",
+
+    body: JSON.stringify({
+
+      userId: userId,
+
+      q1: q1,
+      q2: q2,
+      q3: q3,
+      q4: q4,
+      q5: q5,
+
+      timestamp: new Date().toISOString()
+
+    })
+  });
+
+  // HIDE QUESTIONNAIRE
+  const survey = document.getElementById("moderator-screen");
+
+  survey.classList.add("hidden");
+
+  setTimeout(() => {
+
+    survey.style.display = "none";
+
   }, 800);
 }
 
@@ -177,7 +237,7 @@ function nextStep() {
 
     const userText = input?.value?.trim();
 
-    if (!userText) return; // If input is empty then 0 result
+    if (!userText) return;
 
     createMessage(userText, "user");
 
@@ -197,6 +257,7 @@ function nextStep() {
         timestamp: new Date().toISOString()
       })
     });
+
 /* output */
     const text = `
 Hey! Based on your interest in running and staying active, comfort and support are likely important for you.
@@ -209,6 +270,7 @@ It could be a good option if you're looking for something you can use both for r
     const { bubble, content } = createMessage("", "ai");
 
     if (condition === "A") {
+
       addDisclosureAnimated(bubble, "top");
 
       typingEffect(content, text, () => {
@@ -217,6 +279,7 @@ It could be a good option if you're looking for something you can use both for r
       });
 
     } else {
+
       typingEffect(content, text, () => {
         addProductCard(bubble);
         setTimeout(() => addDisclosureAnimated(bubble, "bottom"), 300);
@@ -250,20 +313,25 @@ const sidebar = document.querySelector(".sidebar");
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
+
 /* Burger settings for mobile devices */
-/*  CLICK (open / close)  */
+/* CLICK (open / close) */
+
 if (burger && sidebar) {
+
   burger.addEventListener("click", () => {
     sidebar.classList.toggle("open");
   });
 
-  /*  SWIPE  */
+  /* SWIPE */
+
   sidebar.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     isDragging = true;
   });
 
   sidebar.addEventListener("touchmove", (e) => {
+
     if (!isDragging) return;
 
     currentX = e.touches[0].clientX;
@@ -275,6 +343,7 @@ if (burger && sidebar) {
   });
 
   sidebar.addEventListener("touchend", () => {
+
     isDragging = false;
 
     if (currentX - startX < -50) {
