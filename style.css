@@ -967,28 +967,30 @@ body {
 }
 .question-context {
 
-  font-size: 14px;
+  font-size: 24px;
 
-  line-height: 1.6;
+  font-weight: 700;
 
-  color: #666;
+  line-height: 1.5;
 
-  margin-bottom: 18px;
+  color: #111;
 
-  padding-bottom: 14px;
+  margin-bottom: 24px;
+
+  padding-bottom: 18px;
 
   border-bottom: 1px solid #ececec;
 }
 
 .single-question-title {
 
-  font-size: 18px;
+  font-size: 20px;
 
   font-weight: 600;
 
   color: #111;
 
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 
   line-height: 1.5;
 }
