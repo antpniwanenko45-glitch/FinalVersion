@@ -965,3 +965,30 @@ body {
     align-items: flex-start;
   }
 }
+.question-context {
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  color: #666;
+
+  margin-bottom: 18px;
+
+  padding-bottom: 14px;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.single-question-title {
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  color: #111;
+
+  margin-bottom: 24px;
+
+  line-height: 1.5;
+}
