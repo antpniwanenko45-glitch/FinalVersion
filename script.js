@@ -344,3 +344,260 @@ if (burger && sidebar) {
   });
 }
 
+/* =========================
+   FINAL SURVEY
+========================= */
+
+const trustQuestions = [
+  {
+    id: "trust_1",
+    text: "I am confident in the AI assistant."
+  },
+  {
+    id: "trust_2",
+    text: "The AI assistant is reliable."
+  },
+  {
+    id: "trust_3",
+    text: "I can trust the AI assistant."
+  }
+];
+
+const pkQuestions = [
+  {
+    id: "pk_1",
+    text: "I felt manipulated by the LLM."
+  },
+  {
+    id: "pk_2",
+    text: "The LLM was not fully transparent."
+  }
+];
+
+/* FIXED ORDER FOR EXPORT */
+const fixedQuestionOrder = [
+  "trust_1",
+  "trust_2",
+  "trust_3",
+  "pk_1",
+  "pk_2"
+];
+
+const answers = {};
+
+/* RANDOMIZE ARRAY */
+
+function shuffleArray(arr) {
+
+  const copy = [...arr];
+
+  for (let i = copy.length - 1; i > 0; i--) {
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+
+  return copy;
+}
+
+/* BUILD BLOCKS */
+
+function buildSurveyFlow() {
+
+  const blocks = [
+    {
+      name: "trust",
+      questions: shuffleArray(trustQuestions)
+    },
+    {
+      name: "pk",
+      questions: shuffleArray(pkQuestions)
+    }
+  ];
+
+  return shuffleArray(blocks);
+}
+
+let surveyFlow = [];
+let currentBlockIndex = 0;
+let currentQuestionIndex = 0;
+
+/* OPEN SURVEY */
+
+function openFinalSurvey() {
+
+  surveyFlow = buildSurveyFlow();
+
+  currentBlockIndex = 0;
+  currentQuestionIndex = 0;
+
+  const surveyScreen = document.getElementById("final-survey-screen");
+
+  surveyScreen.classList.remove("hidden-screen");
+  surveyScreen.style.display = "flex";
+
+  renderCurrentQuestion();
+}
+
+/* RENDER QUESTION */
+
+function renderCurrentQuestion() {
+
+  const container = document.getElementById("dynamic-question-container");
+
+  const currentBlock = surveyFlow[currentBlockIndex];
+
+  const question = currentBlock.questions[currentQuestionIndex];
+
+  let scaleLabels = [];
+
+  if (currentBlock.name === "trust") {
+
+    scaleLabels = [
+      "Not at all",
+      "Slightly",
+      "Somewhat",
+      "Moderately",
+      "Quite a bit",
+      "Very",
+      "Extremely"
+    ];
+
+  } else {
+
+    scaleLabels = [
+      "Not at all",
+      "Slightly",
+      "Somewhat",
+      "Moderately",
+      "Quite a bit",
+      "Very much",
+      "Extremely"
+    ];
+  }
+
+  container.innerHTML = `
+
+    <div class="question-progress">
+      Block ${currentBlockIndex + 1} of ${surveyFlow.length}
+    </div>
+
+    <div class="single-question-card">
+
+      <div class="single-question-title">
+        ${question.text}
+      </div>
+
+      <div class="single-scale">
+
+        ${scaleLabels.map((label, index) => `
+
+          <label class="single-option">
+
+            <input 
+              type="radio" 
+              name="dynamicQuestion" 
+              value="${index + 1}"
+            >
+
+            <span class="scale-number">${index + 1}</span>
+
+            <span class="scale-label">${label}</span>
+
+          </label>
+
+        `).join("")}
+
+      </div>
+
+      <button class="start-btn" onclick="submitCurrentQuestion()">
+        Continue →
+      </button>
+
+    </div>
+  `;
+}
+
+/* SUBMIT QUESTION */
+
+function submitCurrentQuestion() {
+
+  const selected = document.querySelector('input[name="dynamicQuestion"]:checked');
+
+  if (!selected) {
+
+    alert("Please answer the question.");
+
+    return;
+  }
+
+  const currentBlock = surveyFlow[currentBlockIndex];
+
+  const question = currentBlock.questions[currentQuestionIndex];
+
+  answers[question.id] = selected.value;
+
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex >= currentBlock.questions.length) {
+
+    currentBlockIndex++;
+    currentQuestionIndex = 0;
+  }
+
+  if (currentBlockIndex >= surveyFlow.length) {
+
+    finishSurvey();
+
+    return;
+  }
+
+  renderCurrentQuestion();
+}
+
+/* FINISH */
+
+function finishSurvey() {
+
+  const exportData = {
+
+    userId: userId,
+
+    condition: condition,
+
+    timestamp: new Date().toISOString()
+  };
+
+  fixedQuestionOrder.forEach(q => {
+
+    exportData[q] = answers[q] || "";
+  });
+
+  fetch(GOOGLE_SCRIPT_URL, {
+
+    method: "POST",
+
+    body: JSON.stringify(exportData)
+  });
+
+  const container = document.getElementById("dynamic-question-container");
+
+  container.innerHTML = `
+
+    <div class="thank-you-screen">
+
+      <div class="start-icon">✅</div>
+
+      <h1 class="start-title">
+        Thank you!
+      </h1>
+
+      <p class="start-sub">
+        Your responses have been recorded.
+      </p>
+
+    </div>
+  `;
+}
+
