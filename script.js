@@ -564,21 +564,32 @@ function finishSurvey() {
 
   const exportData = {
 
-    userId: userId,
-
+    /* FIRST COLUMN */
     condition: condition,
 
-    timestamp: new Date().toISOString()
+    /* SECOND COLUMN */
+    timestamp: new Date().toISOString(),
+
+    /* THIRD COLUMN */
+    userId: userId,
+
+    /* MEDIATOR */
+    q1Mediator: answers["pk_1"] || "",
+    q2Mediator: answers["pk_2"] || "",
+
+    /* MAIN EFFECT */
+    q1MainEffect: answers["trust_1"] || "",
+    q2MainEffect: answers["trust_2"] || "",
+    q3MainEffect: answers["trust_3"] || ""
   };
-
-  fixedQuestionOrder.forEach(q => {
-
-    exportData[q] = answers[q] || "";
-  });
 
   fetch(GOOGLE_SCRIPT_URL, {
 
     method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
 
     body: JSON.stringify(exportData)
   });
@@ -602,4 +613,3 @@ function finishSurvey() {
     </div>
   `;
 }
-
