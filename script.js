@@ -290,21 +290,11 @@ It could be a good option if you're looking for something you can use both for r
     step = 1;
   }
 
-  else if (step === 1) {
+else if (step === 1) {
 
-    if (!canProceed) return;
+  if (!canProceed) return;
 
-    /* 
-       REDIRECT WITH ID 
-       The same userId is passed to QuestionPro
-       to link prompts with survey responses.
-    */
-    if (condition === "A") {
-      window.location.href = "https://antpniwanenko45.questionpro.com/t/AdLyVZ8vGh?userId=" + userId;
-    } else {
-      window.location.href = "https://LINK-FOR-LATE?userId=" + userId;
-    }
-  }
+  openFinalSurvey();
 }
 
 const burger = document.getElementById("burger");
