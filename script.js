@@ -501,9 +501,6 @@ function renderCurrentQuestion() {
 
     container.innerHTML = `
 
-      <div class="question-progress">
-        Block ${currentBlockIndex + 1} of ${surveyFlow.length}
-      </div>
 
       <div class="single-question-card">
 
@@ -546,9 +543,6 @@ function renderCurrentQuestion() {
 
     container.innerHTML = `
 
-      <div class="question-progress">
-        Block ${currentBlockIndex + 1} of ${surveyFlow.length}
-      </div>
 
       <div class="single-question-card">
 
@@ -623,9 +617,6 @@ function renderCurrentQuestion() {
 
   container.innerHTML = `
 
-    <div class="question-progress">
-      Block ${currentBlockIndex + 1} of ${surveyFlow.length}
-    </div>
 
     <div class="single-question-card">
 
