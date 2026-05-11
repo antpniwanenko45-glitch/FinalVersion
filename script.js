@@ -415,6 +415,8 @@ const blockDescriptions = {
 
   pk: "Please indicate to what extent you experienced the following while reading the message:",
 
+  manipulation: "",
+
   demographics: "Please provide the following demographic information."
 };
 /* RANDOMIZE ARRAY */
