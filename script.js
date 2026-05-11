@@ -376,13 +376,36 @@ const pkQuestions = [
   }
 ];
 
-/* FIXED ORDER FOR EXPORT */
-const fixedQuestionOrder = [
-  "trust_1",
-  "trust_2",
-  "trust_3",
-  "pk_1",
-  "pk_2"
+/* NEW BLOCKS */
+
+const manipulationQuestions = [
+  {
+    id: "manipulation_check",
+    text: "How did you perceive the placement of the disclosure message?",
+    options: [
+      "It appeared before the recommendation",
+      "It appeared after the recommendation",
+      "I did not notice any disclosure message"
+    ]
+  }
+];
+
+const demographicQuestions = [
+  {
+    id: "age",
+    text: "What is your age?",
+    type: "text"
+  },
+  {
+    id: "gender",
+    text: "What is your gender?",
+    options: [
+      "Male",
+      "Female",
+      "Non-binary / other",
+      "Prefer not to say"
+    ]
+  }
 ];
 
 const answers = {};
@@ -407,7 +430,7 @@ function shuffleArray(arr) {
 
 function buildSurveyFlow() {
 
-  const blocks = [
+  const randomizedBlocks = shuffleArray([
     {
       name: "trust",
       questions: shuffleArray(trustQuestions)
@@ -416,9 +439,22 @@ function buildSurveyFlow() {
       name: "pk",
       questions: shuffleArray(pkQuestions)
     }
-  ];
+  ]);
 
-  return shuffleArray(blocks);
+  return [
+
+    ...randomizedBlocks,
+
+    {
+      name: "manipulation",
+      questions: manipulationQuestions
+    },
+
+    {
+      name: "demographics",
+      questions: demographicQuestions
+    }
+  ];
 }
 
 let surveyFlow = [];
@@ -451,6 +487,97 @@ function renderCurrentQuestion() {
   const currentBlock = surveyFlow[currentBlockIndex];
 
   const question = currentBlock.questions[currentQuestionIndex];
+
+  /* TEXT INPUT */
+
+  if (question.type === "text") {
+
+    container.innerHTML = `
+
+      <div class="question-progress">
+        Block ${currentBlockIndex + 1} of ${surveyFlow.length}
+      </div>
+
+      <div class="single-question-card">
+
+        <div class="single-question-title">
+          ${question.text}
+        </div>
+
+        <input
+          type="number"
+          id="textAnswer"
+          placeholder="Enter your answer"
+          style="
+            width:100%;
+            padding:16px;
+            border-radius:14px;
+            border:1px solid #ddd;
+            font-size:16px;
+            box-sizing:border-box;
+            margin-top:10px;
+          "
+        >
+
+        <button class="start-btn" onclick="submitCurrentQuestion()">
+          Continue →
+        </button>
+
+      </div>
+    `;
+
+    return;
+  }
+
+  /* CUSTOM OPTIONS */
+
+  if (question.options) {
+
+    container.innerHTML = `
+
+      <div class="question-progress">
+        Block ${currentBlockIndex + 1} of ${surveyFlow.length}
+      </div>
+
+      <div class="single-question-card">
+
+        <div class="single-question-title">
+          ${question.text}
+        </div>
+
+        <div class="single-scale">
+
+          ${question.options.map((option, index) => `
+
+            <label class="single-option">
+
+              <input
+                type="radio"
+                name="dynamicQuestion"
+                value="${option}"
+              >
+
+              <span class="scale-number">${index + 1}</span>
+
+              <span class="scale-label">${option}</span>
+
+            </label>
+
+          `).join("")}
+
+        </div>
+
+        <button class="start-btn" onclick="submitCurrentQuestion()">
+          Continue →
+        </button>
+
+      </div>
+    `;
+
+    return;
+  }
+
+  /* DEFAULT LIKERT */
 
   let scaleLabels = [];
 
@@ -497,9 +624,9 @@ function renderCurrentQuestion() {
 
           <label class="single-option">
 
-            <input 
-              type="radio" 
-              name="dynamicQuestion" 
+            <input
+              type="radio"
+              name="dynamicQuestion"
               value="${index + 1}"
             >
 
@@ -525,20 +652,31 @@ function renderCurrentQuestion() {
 
 function submitCurrentQuestion() {
 
-  const selected = document.querySelector('input[name="dynamicQuestion"]:checked');
+  const currentBlock = surveyFlow[currentBlockIndex];
 
-  if (!selected) {
+  const question = currentBlock.questions[currentQuestionIndex];
+
+  let value = null;
+
+  /* TEXT INPUT */
+
+  if (question.type === "text") {
+
+    value = document.getElementById("textAnswer")?.value?.trim();
+
+  } else {
+
+    value = document.querySelector('input[name="dynamicQuestion"]:checked')?.value;
+  }
+
+  if (!value) {
 
     alert("Please answer the question.");
 
     return;
   }
 
-  const currentBlock = surveyFlow[currentBlockIndex];
-
-  const question = currentBlock.questions[currentQuestionIndex];
-
-  answers[question.id] = selected.value;
+  answers[question.id] = value;
 
   currentQuestionIndex++;
 
@@ -560,19 +698,14 @@ function submitCurrentQuestion() {
 
 /* FINISH */
 
-/* FINISH */
-
 function finishSurvey() {
 
   const exportData = {
 
-    /* FIRST COLUMN */
     condition: condition,
 
-    /* SECOND COLUMN */
     timestamp: new Date().toISOString(),
 
-    /* THIRD COLUMN */
     userId: userId,
 
     /* MEDIATOR */
@@ -582,7 +715,14 @@ function finishSurvey() {
     /* MAIN EFFECT */
     q1MainEffect: answers["trust_1"] || "",
     q2MainEffect: answers["trust_2"] || "",
-    q3MainEffect: answers["trust_3"] || ""
+    q3MainEffect: answers["trust_3"] || "",
+
+    /* MANIPULATION CHECK */
+    manipulationCheck: answers["manipulation_check"] || "",
+
+    /* DEMOGRAPHICS */
+    age: answers["age"] || "",
+    gender: answers["gender"] || ""
   };
 
   fetch(GOOGLE_SCRIPT_URL, {
@@ -615,4 +755,3 @@ function finishSurvey() {
     </div>
   `;
 }
-
