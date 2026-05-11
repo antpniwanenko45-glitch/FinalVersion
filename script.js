@@ -409,7 +409,16 @@ const demographicQuestions = [
 ];
 
 const answers = {};
+const blockDescriptions = {
 
+  trust: "Please indicate to what extent you agree with the following statements about LLMs in general, based on the interaction you just experienced.",
+
+  pk: "Please indicate to what extent you experienced the following while reading the message:",
+
+  manipulation: "Please answer the following question regarding the disclosure message.",
+
+  demographics: "Please provide the following demographic information."
+};
 /* RANDOMIZE ARRAY */
 
 function shuffleArray(arr) {
