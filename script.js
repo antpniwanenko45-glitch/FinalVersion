@@ -560,17 +560,140 @@ function submitCurrentQuestion() {
 
 /* FINISH */
 
+/* FINISH */
+
 function finishSurvey() {
+
+  const container = document.getElementById("dynamic-question-container");
+
+  container.innerHTML = `
+
+    <div class="single-question-card">
+
+      <div class="single-question-title">
+        How did you perceive the placement of the disclosure message?
+      </div>
+
+      <div class="single-scale">
+
+        <label class="single-option">
+          <input type="radio" name="manipulationCheck" value="before">
+          <span class="scale-label">
+            It appeared before the recommendation
+          </span>
+        </label>
+
+        <label class="single-option">
+          <input type="radio" name="manipulationCheck" value="after">
+          <span class="scale-label">
+            It appeared after the recommendation
+          </span>
+        </label>
+
+        <label class="single-option">
+          <input type="radio" name="manipulationCheck" value="not_notice">
+          <span class="scale-label">
+            I did not notice any disclosure message
+          </span>
+        </label>
+
+      </div>
+
+    </div>
+
+    <div class="single-question-card">
+
+      <div class="single-question-title">
+        Demographic Information
+      </div>
+
+      <div class="single-scale">
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+
+          <label style="font-weight:600; color:#111;">
+            Age
+          </label>
+
+          <input 
+            type="number" 
+            id="ageInput"
+            placeholder="Enter your age"
+            style="
+              padding:14px;
+              border-radius:14px;
+              border:1px solid #ddd;
+              font-size:16px;
+              outline:none;
+            "
+          >
+
+        </div>
+
+        <div style="margin-top:20px; display:flex; flex-direction:column; gap:12px;">
+
+          <label style="font-weight:600; color:#111;">
+            Gender
+          </label>
+
+          <label class="single-option">
+            <input type="radio" name="gender" value="male">
+            <span class="scale-label">Male</span>
+          </label>
+
+          <label class="single-option">
+            <input type="radio" name="gender" value="female">
+            <span class="scale-label">Female</span>
+          </label>
+
+          <label class="single-option">
+            <input type="radio" name="gender" value="non_binary">
+            <span class="scale-label">Non-binary / other</span>
+          </label>
+
+          <label class="single-option">
+            <input type="radio" name="gender" value="prefer_not">
+            <span class="scale-label">Prefer not to say</span>
+          </label>
+
+        </div>
+
+      </div>
+
+      <button class="start-btn" onclick="submitFinalDemographics()">
+        Finish →
+      </button>
+
+    </div>
+  `;
+}
+
+/* FINAL DEMOGRAPHICS SUBMIT */
+
+function submitFinalDemographics() {
+
+  const manipulation =
+    document.querySelector('input[name="manipulationCheck"]:checked')?.value;
+
+  const gender =
+    document.querySelector('input[name="gender"]:checked')?.value;
+
+  const age =
+    document.getElementById("ageInput")?.value;
+
+  if (!manipulation || !gender || !age) {
+
+    alert("Please complete all questions.");
+
+    return;
+  }
 
   const exportData = {
 
-    /* FIRST COLUMN */
     condition: condition,
 
-    /* SECOND COLUMN */
     timestamp: new Date().toISOString(),
 
-    /* THIRD COLUMN */
     userId: userId,
 
     /* MEDIATOR */
@@ -580,7 +703,14 @@ function finishSurvey() {
     /* MAIN EFFECT */
     q1MainEffect: answers["trust_1"] || "",
     q2MainEffect: answers["trust_2"] || "",
-    q3MainEffect: answers["trust_3"] || ""
+    q3MainEffect: answers["trust_3"] || "",
+
+    /* MANIPULATION CHECK */
+    manipulationCheck: manipulation,
+
+    /* DEMOGRAPHICS */
+    age: age,
+    gender: gender
   };
 
   fetch(GOOGLE_SCRIPT_URL, {
