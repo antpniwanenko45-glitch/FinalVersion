@@ -297,6 +297,8 @@ else if (step === 1) {
   openFinalSurvey();
 }
 
+} 
+
 const burger = document.getElementById("burger");
 const sidebar = document.querySelector(".sidebar");
 
