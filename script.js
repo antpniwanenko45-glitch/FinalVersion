@@ -22,7 +22,7 @@ const userId = getUserId();
    GOOGLE SHEETS ENDPOINT 
    This endpoint receives prompt data via POST request.
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxl18x0YYgVpyM8BlTeb_soKTWUb2fAheQZ8UKqH2A5IyM8D32qwvDHEBrjExiDhBav/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwO5XPfqU_r1kjShE7LdeUEfE9-wOkrI582poE7RPfQQW2-TKrEGu_xm2jwa8p6kXH6/exec";
 
 /*
    SECOND GOOGLE SHEETS ENDPOINT
