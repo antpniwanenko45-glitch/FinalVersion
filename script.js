@@ -509,9 +509,13 @@ function renderCurrentQuestion() {
 
       <div class="single-question-card">
 
-        <div class="single-question-title">
-          ${question.text}
-        </div>
+<div class="question-context">
+  ${blockDescriptions[currentBlock.name]}
+</div>
+
+<div class="single-question-title">
+  ${question.text}
+</div>
 
         <input
           type="number"
@@ -550,9 +554,13 @@ function renderCurrentQuestion() {
 
       <div class="single-question-card">
 
-        <div class="single-question-title">
-          ${question.text}
-        </div>
+<div class="question-context">
+  ${blockDescriptions[currentBlock.name]}
+</div>
+
+<div class="single-question-title">
+  ${question.text}
+</div>
 
         <div class="single-scale">
 
@@ -623,9 +631,13 @@ function renderCurrentQuestion() {
 
     <div class="single-question-card">
 
-      <div class="single-question-title">
-        ${question.text}
-      </div>
+<div class="question-context">
+  ${blockDescriptions[currentBlock.name]}
+</div>
+
+<div class="single-question-title">
+  ${question.text}
+</div>
 
       <div class="single-scale">
 
