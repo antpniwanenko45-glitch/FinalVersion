@@ -994,29 +994,32 @@ body {
 
   line-height: 1.5;
 }
+
 .llm-warning {
 
-  background: #fff1f1;
+  background: #fff0f0 !important;
 
-  border: 2px solid #ff4d4f;
+  border: 3px solid #ff3b3b !important;
 
-  color: #c62828;
+  color: #c40000 !important;
 
-  font-size: 16px;
+  font-size: 18px !important;
 
-  font-weight: 700;
+  font-weight: 800 !important;
 
-  line-height: 1.6;
+  line-height: 1.7;
 
-  padding: 16px 20px;
+  padding: 18px 22px;
 
-  border-radius: 14px;
+  border-radius: 16px;
 
-  margin: 18px auto 22px;
+  margin: 20px auto 26px;
 
-  max-width: 720px;
+  max-width: 760px;
 
-  text-align: left;
+  text-align: center !important;
 
-  box-shadow: 0 8px 24px rgba(255, 77, 79, 0.12);
+  box-shadow: 0 10px 30px rgba(255, 59, 59, 0.18);
+
+  display: block;
 }
