@@ -1028,7 +1028,7 @@ body {
 
   font-weight: 700;
 
-  color: #666;
+  color: #111;
 
   text-transform: uppercase;
 
@@ -1050,5 +1050,18 @@ body {
 
   margin-top: 18px;
 
-  font-weight: 500;
+  margin-bottom: 22px;
+
+  font-weight: 600;
+
+  font-size: 16px;
+
+  color: #111;
+
+  text-align: left;
+
+  max-width: 760px;
+
+  margin-left: auto;
+  margin-right: auto;
 }
