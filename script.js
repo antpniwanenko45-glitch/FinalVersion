@@ -809,47 +809,48 @@ async function finishSurvey() {
     gender: answers["gender"] || ""
   };
 
-  try {
+try {
 
-    await fetch(GOOGLE_SCRIPT_URL, {
+  await fetch(GOOGLE_SCRIPT_URL, {
 
-      method: "POST",
+    method: "POST",
 
-      headers: {
-        "Content-Type": "application/json"
-      },
+    mode: "no-cors",
 
-      body: JSON.stringify(exportData)
-    });
+    headers: {
+      "Content-Type": "application/json"
+    },
 
-    const container =
-      document.getElementById(
-        "dynamic-question-container"
-      );
+    body: JSON.stringify(exportData)
+  });
 
-    container.innerHTML = `
+  const container =
+    document.getElementById(
+      "dynamic-question-container"
+    );
 
-      <div class="thank-you-screen">
+  container.innerHTML = `
 
-        <div class="start-icon">
-          ✅
-        </div>
+    <div class="thank-you-screen">
 
-        <h1 class="start-title">
-          Thank you!
-        </h1>
-
-        <p class="start-sub">
-          Your responses have been recorded.
-        </p>
-
+      <div class="start-icon">
+        ✅
       </div>
-    `;
 
-  } catch (err) {
+      <h1 class="start-title">
+        Thank you!
+      </h1>
 
-    console.error(err);
+      <p class="start-sub">
+        Your responses have been recorded.
+      </p>
 
-    alert("Error saving responses.");
-  }
+    </div>
+  `;
+
+} catch (err) {
+
+  console.error(err);
+
+  alert("Error saving responses.");
 }
