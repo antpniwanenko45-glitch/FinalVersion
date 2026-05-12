@@ -21,7 +21,7 @@ const userId = getUserId();
 
 /* GOOGLE SHEETS */
 const GOOGLE_SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbyxG9ZLcWqxtjvC8tBnmUh8mE45mGiydDMPVj7rkPZzqiPjmTnZHc_SfDYusGteCrLC/exec";
+"https://script.google.com/macros/s/AKfycbwX8DHHJXnOVpKqH3qG9TDY_jHoXr7WhzGXn7QrMJiu03HkBaRkTVSI3TPy38E7mFc/exec";
 
 /* CONDITION */
 function getCondition() {
