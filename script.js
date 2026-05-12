@@ -453,7 +453,7 @@ const moderatorAnswers = {
 const blockDescriptions = {
 
   trust:
-    "Please indicate to what extent you agree with the following statements about LLMs in general, based on the interaction you just experienced.",
+    "Please indicate to what extent you agree with the following statements about the LLM, based on the interaction you just experienced.",
 
   pk:
     "Please indicate to what extent you experienced the following while reading the message:",
