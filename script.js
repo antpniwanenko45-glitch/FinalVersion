@@ -2,14 +2,15 @@ const chat = document.getElementById("chat");
 
 /* 
    USER IDENTIFIER 
-   A unique identifier is generated once per user.
-   It is stored in localStorage to persist across sessions.
 */
 function getUserId() {
+
   let id = localStorage.getItem("userId");
 
   if (!id) {
+
     id = crypto.randomUUID();
+
     localStorage.setItem("userId", id);
   }
 
@@ -18,40 +19,40 @@ function getUserId() {
 
 const userId = getUserId();
 
-/* 
-   GOOGLE SHEETS ENDPOINT 
-   This endpoint receives prompt data via POST request.
-*/
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxG9ZLcWqxtjvC8tBnmUh8mE45mGiydDMPVj7rkPZzqiPjmTnZHc_SfDYusGteCrLC/exec";
-
-/*
-   SECOND GOOGLE SHEETS ENDPOINT
-   This endpoint receives moderator questionnaire data.
-*/
-
-
+/* GOOGLE SHEETS */
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyxG9ZLcWqxtjvC8tBnmUh8mE45mGiydDMPVj7rkPZzqiPjmTnZHc_SfDYusGteCrLC/exec";
 
 /* CONDITION */
 function getCondition() {
+
   let bag;
 
   try {
+
     bag = JSON.parse(localStorage.getItem("conditionBag"));
+
   } catch {
+
     bag = null;
   }
 
   if (!bag || bag.length === 0) {
+
     bag = ["A", "A", "B", "B"];
 
     for (let i = bag.length - 1; i > 0; i--) {
+
       const j = Math.floor(Math.random() * (i + 1));
+
       [bag[i], bag[j]] = [bag[j], bag[i]];
     }
   }
 
   const condition = bag.pop();
+
   localStorage.setItem("conditionBag", JSON.stringify(bag));
+
   return condition;
 }
 
@@ -64,18 +65,19 @@ function startExperiment() {
 
   const moderator = document.getElementById("moderator-screen");
 
-  // СНАЧАЛА показываем второй экран
   moderator.classList.remove("hidden-screen");
+
   moderator.style.display = "flex";
 
-  // ПОТОМ запускаем анимацию первого
   intro.classList.add("hidden");
 
-  // И только потом удаляем первый экран
   setTimeout(() => {
+
     intro.style.display = "none";
+
   }, 800);
 }
+
 /* MODERATOR QUESTIONNAIRE */
 function submitModeratorSurvey() {
 
@@ -85,29 +87,29 @@ function submitModeratorSurvey() {
   const q4 = document.querySelector('input[name="q4"]:checked')?.value;
   const q5 = document.querySelector('input[name="q5"]:checked')?.value;
 
-  // VALIDATION
   if (!q1 || !q2 || !q3 || !q4 || !q5) {
+
     alert("Please answer all questions.");
+
     return;
   }
 
-  // SEND TO SECOND GOOGLE SHEET
   moderatorAnswers.q1 = q1;
   moderatorAnswers.q2 = q2;
   moderatorAnswers.q3 = q3;
   moderatorAnswers.q4 = q4;
   moderatorAnswers.q5 = q5;
-   
-// GARAGE DOOR TRANSITION
-const survey = document.getElementById("moderator-screen");
 
-survey.classList.add("hidden");
+  const survey = document.getElementById("moderator-screen");
 
-setTimeout(() => {
-  survey.style.display = "none";
-}, 800);
+  survey.classList.add("hidden");
+
+  setTimeout(() => {
+
+    survey.style.display = "none";
+
+  }, 800);
 }
-
 
 /* CHAT LIST */
 const chats = [
@@ -124,28 +126,42 @@ const chats = [
 ];
 
 const chatList = document.getElementById("chats");
+
 if (chatList) {
-  chats.sort(() => Math.random() - 0.5).forEach(c => {
-    const div = document.createElement("div");
-    div.className = "chat-item";
-    div.innerText = c;
-    chatList.appendChild(div);
-  });
+
+  chats
+    .sort(() => Math.random() - 0.5)
+    .forEach(c => {
+
+      const div = document.createElement("div");
+
+      div.className = "chat-item";
+
+      div.innerText = c;
+
+      chatList.appendChild(div);
+    });
 }
 
 /* MESSAGE */
 function createMessage(text, type) {
+
   const wrapper = document.createElement("div");
+
   wrapper.className = "message " + type;
 
   const bubble = document.createElement("div");
+
   bubble.className = "bubble";
 
   const content = document.createElement("div");
+
   content.innerHTML = text;
 
   bubble.appendChild(content);
+
   wrapper.appendChild(bubble);
+
   chat.appendChild(wrapper);
 
   chat.scrollTop = chat.scrollHeight;
@@ -155,25 +171,38 @@ function createMessage(text, type) {
 
 /* DISCLOSURE */
 function addDisclosureAnimated(bubble, position = "bottom") {
+
   const d = document.createElement("div");
+
   d.className = "disclosure";
+
   d.innerText = "Sponsored content";
 
   d.style.opacity = "0";
+
   d.style.transition = "opacity 0.5s";
 
   if (position === "top") {
+
     bubble.insertBefore(d, bubble.firstChild);
+
   } else {
+
     bubble.appendChild(d);
   }
 
-  setTimeout(() => d.style.opacity = "1", 50);
+  setTimeout(() => {
+
+    d.style.opacity = "1";
+
+  }, 50);
 }
 
 /* PRODUCT */
 function addProductCard(bubble) {
+
   const container = document.createElement("div");
+
   container.className = "product";
 
   container.innerHTML = `
@@ -181,14 +210,25 @@ function addProductCard(bubble) {
     <div class="product-sub">🏆 Best overall</div>
 
     <div class="product-card">
+
       <div class="product-img">
         <img src="images/shoes.jpg" />
       </div>
 
       <div class="product-info">
-        <div class="product-name">New Balance 1906R Trainer</div>
-        <div class="product-price">€160.00</div>
-        <div class="product-rating">⭐ 4.5 (843)</div>
+
+        <div class="product-name">
+          New Balance 1906R Trainer
+        </div>
+
+        <div class="product-price">
+          €160.00
+        </div>
+
+        <div class="product-rating">
+          ⭐ 4.5 (843)
+        </div>
+
       </div>
     </div>
   `;
@@ -198,23 +238,33 @@ function addProductCard(bubble) {
 
 /* TYPING */
 function typingEffect(contentEl, text, callback) {
+
   let i = 0;
 
   const interval = setInterval(() => {
+
     contentEl.innerHTML = text.slice(0, i);
+
     i++;
+
     chat.scrollTop = chat.scrollHeight;
 
     if (i > text.length) {
+
       clearInterval(interval);
+
       if (callback) callback();
     }
+
   }, 18);
 }
 
 /* FLOW */
 let step = 0;
 let canProceed = false;
+
+/* STORE PROMPT */
+let storedPrompt = "";
 
 function nextStep() {
 
@@ -226,38 +276,15 @@ function nextStep() {
 
     if (!userText) return;
 
+    storedPrompt = userText;
+
     createMessage(userText, "user");
 
-    if (input) input.value = "";
+    if (input) {
 
-    /* 
-       DATA LOGGING 
-       The user prompt, condition, and unique ID
-       are sent to Google Sheets.
-    */
-fetch(GOOGLE_SCRIPT_URL, {
+      input.value = "";
+    }
 
-  method: "POST",
-
-  headers: {
-    "Content-Type": "application/json"
-  },
-
-  body: JSON.stringify({
-
-    sheet: "Prompts",
-
-    timestamp: new Date().toISOString(),
-
-    userId: userId,
-
-    userText: userText,
-
-    condition: condition
-  })
-});
-
-/* output */
     const text = `
 Hey! Based on your interest in running and staying active, comfort and support are likely important for you.
 
@@ -273,15 +300,24 @@ It could be a good option if you're looking for something you can use both for r
       addDisclosureAnimated(bubble, "top");
 
       typingEffect(content, text, () => {
+
         addProductCard(bubble);
+
         canProceed = true;
       });
 
     } else {
 
       typingEffect(content, text, () => {
+
         addProductCard(bubble);
-        setTimeout(() => addDisclosureAnimated(bubble, "bottom"), 300);
+
+        setTimeout(() => {
+
+          addDisclosureAnimated(bubble, "bottom");
+
+        }, 300);
+
         canProceed = true;
       });
     }
@@ -289,35 +325,34 @@ It could be a good option if you're looking for something you can use both for r
     step = 1;
   }
 
-else if (step === 1) {
+  else if (step === 1) {
 
-  if (!canProceed) return;
+    if (!canProceed) return;
 
-  openFinalSurvey();
+    openFinalSurvey();
+  }
 }
 
-} 
-
+/* BURGER */
 const burger = document.getElementById("burger");
+
 const sidebar = document.querySelector(".sidebar");
 
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
 
-/* Burger settings for mobile devices */
-/* CLICK (open / close) */
-
 if (burger && sidebar) {
 
   burger.addEventListener("click", () => {
+
     sidebar.classList.toggle("open");
   });
 
-  /* SWIPE */
-
   sidebar.addEventListener("touchstart", (e) => {
+
     startX = e.touches[0].clientX;
+
     isDragging = true;
   });
 
@@ -326,9 +361,11 @@ if (burger && sidebar) {
     if (!isDragging) return;
 
     currentX = e.touches[0].clientX;
+
     let diff = currentX - startX;
 
     if (diff < 0) {
+
       sidebar.style.transform = `translateX(${diff}px)`;
     }
   });
@@ -338,6 +375,7 @@ if (burger && sidebar) {
     isDragging = false;
 
     if (currentX - startX < -50) {
+
       sidebar.classList.remove("open");
     }
 
@@ -345,10 +383,7 @@ if (burger && sidebar) {
   });
 }
 
-/* =========================
-   FINAL SURVEY
-========================= */
-
+/* FINAL SURVEY */
 const trustQuestions = [
   {
     id: "trust_1",
@@ -374,8 +409,6 @@ const pkQuestions = [
     text: "The LLM was not fully transparent."
   }
 ];
-
-/* NEW BLOCKS */
 
 const manipulationQuestions = [
   {
@@ -419,15 +452,17 @@ const moderatorAnswers = {
 
 const blockDescriptions = {
 
-  trust: "Please indicate to what extent you agree with the following statements about LLMs in general, based on the interaction you just experienced.",
+  trust:
+    "Please indicate to what extent you agree with the following statements about LLMs in general, based on the interaction you just experienced.",
 
-  pk: "Please indicate to what extent you experienced the following while reading the message:",
+  pk:
+    "Please indicate to what extent you experienced the following while reading the message:",
 
   manipulation: "",
 
-  demographics: "Please provide the following demographic information."
+  demographics:
+    "Please provide the following demographic information."
 };
-/* RANDOMIZE ARRAY */
 
 function shuffleArray(arr) {
 
@@ -442,8 +477,6 @@ function shuffleArray(arr) {
 
   return copy;
 }
-
-/* BUILD BLOCKS */
 
 function buildSurveyFlow() {
 
@@ -475,52 +508,54 @@ function buildSurveyFlow() {
 }
 
 let surveyFlow = [];
+
 let currentBlockIndex = 0;
+
 let currentQuestionIndex = 0;
 
 /* OPEN SURVEY */
-
 function openFinalSurvey() {
 
   surveyFlow = buildSurveyFlow();
 
   currentBlockIndex = 0;
+
   currentQuestionIndex = 0;
 
-  const surveyScreen = document.getElementById("final-survey-screen");
+  const surveyScreen =
+    document.getElementById("final-survey-screen");
 
   surveyScreen.classList.remove("hidden-screen");
+
   surveyScreen.style.display = "flex";
 
   renderCurrentQuestion();
 }
 
 /* RENDER QUESTION */
-
 function renderCurrentQuestion() {
 
-  const container = document.getElementById("dynamic-question-container");
+  const container =
+    document.getElementById("dynamic-question-container");
 
-  const currentBlock = surveyFlow[currentBlockIndex];
+  const currentBlock =
+    surveyFlow[currentBlockIndex];
 
-  const question = currentBlock.questions[currentQuestionIndex];
-
-  /* TEXT INPUT */
+  const question =
+    currentBlock.questions[currentQuestionIndex];
 
   if (question.type === "text") {
 
     container.innerHTML = `
-
-
       <div class="single-question-card">
 
-<div class="question-context">
-  ${blockDescriptions[currentBlock.name]}
-</div>
+        <div class="question-context">
+          ${blockDescriptions[currentBlock.name]}
+        </div>
 
-<div class="single-question-title">
-  ${question.text}
-</div>
+        <div class="single-question-title">
+          ${question.text}
+        </div>
 
         <input
           type="number"
@@ -537,8 +572,11 @@ function renderCurrentQuestion() {
           "
         >
 
-        <button class="start-btn" onclick="submitCurrentQuestion()">
+        <button class="start-btn"
+          onclick="submitCurrentQuestion()">
+
           Continue →
+
         </button>
 
       </div>
@@ -547,22 +585,18 @@ function renderCurrentQuestion() {
     return;
   }
 
-  /* CUSTOM OPTIONS */
-
   if (question.options) {
 
     container.innerHTML = `
-
-
       <div class="single-question-card">
 
-<div class="question-context">
-  ${blockDescriptions[currentBlock.name]}
-</div>
+        <div class="question-context">
+          ${blockDescriptions[currentBlock.name]}
+        </div>
 
-<div class="single-question-title">
-  ${question.text}
-</div>
+        <div class="single-question-title">
+          ${question.text}
+        </div>
 
         <div class="single-scale">
 
@@ -576,9 +610,13 @@ function renderCurrentQuestion() {
                 value="${option}"
               >
 
-              <span class="scale-number">${index + 1}</span>
+              <span class="scale-number">
+                ${index + 1}
+              </span>
 
-              <span class="scale-label">${option}</span>
+              <span class="scale-label">
+                ${option}
+              </span>
 
             </label>
 
@@ -586,8 +624,11 @@ function renderCurrentQuestion() {
 
         </div>
 
-        <button class="start-btn" onclick="submitCurrentQuestion()">
+        <button class="start-btn"
+          onclick="submitCurrentQuestion()">
+
           Continue →
+
         </button>
 
       </div>
@@ -595,8 +636,6 @@ function renderCurrentQuestion() {
 
     return;
   }
-
-  /* DEFAULT LIKERT */
 
   let scaleLabels = [];
 
@@ -626,17 +665,15 @@ function renderCurrentQuestion() {
   }
 
   container.innerHTML = `
-
-
     <div class="single-question-card">
 
-<div class="question-context">
-  ${blockDescriptions[currentBlock.name]}
-</div>
+      <div class="question-context">
+        ${blockDescriptions[currentBlock.name]}
+      </div>
 
-<div class="single-question-title">
-  ${question.text}
-</div>
+      <div class="single-question-title">
+        ${question.text}
+      </div>
 
       <div class="single-scale">
 
@@ -650,9 +687,13 @@ function renderCurrentQuestion() {
               value="${index + 1}"
             >
 
-            <span class="scale-number">${index + 1}</span>
+            <span class="scale-number">
+              ${index + 1}
+            </span>
 
-            <span class="scale-label">${label}</span>
+            <span class="scale-label">
+              ${label}
+            </span>
 
           </label>
 
@@ -660,8 +701,11 @@ function renderCurrentQuestion() {
 
       </div>
 
-      <button class="start-btn" onclick="submitCurrentQuestion()">
+      <button class="start-btn"
+        onclick="submitCurrentQuestion()">
+
         Continue →
+
       </button>
 
     </div>
@@ -669,24 +713,28 @@ function renderCurrentQuestion() {
 }
 
 /* SUBMIT QUESTION */
-
 function submitCurrentQuestion() {
 
-  const currentBlock = surveyFlow[currentBlockIndex];
+  const currentBlock =
+    surveyFlow[currentBlockIndex];
 
-  const question = currentBlock.questions[currentQuestionIndex];
+  const question =
+    currentBlock.questions[currentQuestionIndex];
 
   let value = null;
 
-  /* TEXT INPUT */
-
   if (question.type === "text") {
 
-    value = document.getElementById("textAnswer")?.value?.trim();
+    value =
+      document.getElementById("textAnswer")
+      ?.value?.trim();
 
   } else {
 
-    value = document.querySelector('input[name="dynamicQuestion"]:checked')?.value;
+    value =
+      document.querySelector(
+        'input[name="dynamicQuestion"]:checked'
+      )?.value;
   }
 
   if (!value) {
@@ -700,9 +748,13 @@ function submitCurrentQuestion() {
 
   currentQuestionIndex++;
 
-  if (currentQuestionIndex >= currentBlock.questions.length) {
+  if (
+    currentQuestionIndex >=
+    currentBlock.questions.length
+  ) {
 
     currentBlockIndex++;
+
     currentQuestionIndex = 0;
   }
 
@@ -717,8 +769,7 @@ function submitCurrentQuestion() {
 }
 
 /* FINISH */
-
-function finishSurvey() {
+async function finishSurvey() {
 
   const exportData = {
 
@@ -730,6 +781,8 @@ function finishSurvey() {
 
     userId: userId,
 
+    userText: storedPrompt,
+
     /* MODERATOR */
     q1Moderator: moderatorAnswers.q1,
     q2Moderator: moderatorAnswers.q2,
@@ -737,17 +790,18 @@ function finishSurvey() {
     q4Moderator: moderatorAnswers.q4,
     q5Moderator: moderatorAnswers.q5,
 
-    /* MEDIATOR = PK */
+    /* MEDIATOR */
     q1Mediator: answers["pk_1"] || "",
     q2Mediator: answers["pk_2"] || "",
 
-    /* MAIN EFFECT = TRUST */
+    /* MAIN EFFECT */
     q1MainEffect: answers["trust_1"] || "",
     q2MainEffect: answers["trust_2"] || "",
     q3MainEffect: answers["trust_3"] || "",
 
-    /* MANIPULATION CHECK */
-    manipulationCheck: answers["manipulation_check"] || "",
+    /* MANIPULATION */
+    manipulationCheck:
+      answers["manipulation_check"] || "",
 
     /* DEMOGRAPHICS */
     age: answers["age"] || "",
@@ -755,33 +809,47 @@ function finishSurvey() {
     gender: answers["gender"] || ""
   };
 
-  fetch(GOOGLE_SCRIPT_URL, {
+  try {
 
-    method: "POST",
+    await fetch(GOOGLE_SCRIPT_URL, {
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+      method: "POST",
 
-    body: JSON.stringify(exportData)
-  });
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-  const container = document.getElementById("dynamic-question-container");
+      body: JSON.stringify(exportData)
+    });
 
-  container.innerHTML = `
+    const container =
+      document.getElementById(
+        "dynamic-question-container"
+      );
 
-    <div class="thank-you-screen">
+    container.innerHTML = `
 
-      <div class="start-icon">✅</div>
+      <div class="thank-you-screen">
 
-      <h1 class="start-title">
-        Thank you!
-      </h1>
+        <div class="start-icon">
+          ✅
+        </div>
 
-      <p class="start-sub">
-        Your responses have been recorded.
-      </p>
+        <h1 class="start-title">
+          Thank you!
+        </h1>
 
-    </div>
-  `;
+        <p class="start-sub">
+          Your responses have been recorded.
+        </p>
+
+      </div>
+    `;
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Error saving responses.");
+  }
 }
