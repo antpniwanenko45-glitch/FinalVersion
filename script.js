@@ -33,21 +33,30 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxG9ZLcWqxtj
 
 /* CONDITION */
 function getCondition() {
+  let bag;
 
-  let existing = localStorage.getItem("assignedCondition");
-
-  if (existing) {
-    return existing;
+  try {
+    bag = JSON.parse(localStorage.getItem("conditionBag"));
+  } catch {
+    bag = null;
   }
 
-  const randomCondition = Math.random() < 0.5 ? "A" : "B";
+  if (!bag || bag.length === 0) {
+    bag = ["A", "A", "B", "B"];
 
-  localStorage.setItem("assignedCondition", randomCondition);
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+  }
 
-  return randomCondition;
+  const condition = bag.pop();
+  localStorage.setItem("conditionBag", JSON.stringify(bag));
+  return condition;
 }
 
 const condition = getCondition();
+
 /* START */
 function startExperiment() {
 
@@ -218,7 +227,6 @@ function nextStep() {
     if (!userText) return;
 
     createMessage(userText, "user");
-    storedPrompt = userText;
 
     if (input) input.value = "";
 
@@ -227,7 +235,27 @@ function nextStep() {
        The user prompt, condition, and unique ID
        are sent to Google Sheets.
     */
+fetch(GOOGLE_SCRIPT_URL, {
 
+  method: "POST",
+
+  headers: {
+    "Content-Type": "application/json"
+  },
+
+  body: JSON.stringify({
+
+    sheet: "Prompts",
+
+    timestamp: new Date().toISOString(),
+
+    userId: userId,
+
+    userText: userText,
+
+    condition: condition
+  })
+});
 
 /* output */
     const text = `
@@ -381,7 +409,6 @@ const demographicQuestions = [
 
 const answers = {};
 
-let storedPrompt = "";
 const moderatorAnswers = {
   q1: "",
   q2: "",
@@ -693,28 +720,7 @@ function submitCurrentQuestion() {
 
 function finishSurvey() {
 
-  /* =========================
-     PROMPTS EXPORT
-  ========================= */
-
-  const promptData = {
-
-    sheet: "Prompts",
-
-    timestamp: new Date().toISOString(),
-
-    userId: userId,
-
-    userText: storedPrompt,
-
-    condition: condition
-  };
-
-  /* =========================
-     FINAL SURVEY EXPORT
-  ========================= */
-
-  const surveyData = {
+  const exportData = {
 
     sheet: "Moderator responses",
 
@@ -740,7 +746,7 @@ function finishSurvey() {
     q2MainEffect: answers["trust_2"] || "",
     q3MainEffect: answers["trust_3"] || "",
 
-    /* MANIPULATION */
+    /* MANIPULATION CHECK */
     manipulationCheck: answers["manipulation_check"] || "",
 
     /* DEMOGRAPHICS */
@@ -749,60 +755,33 @@ function finishSurvey() {
     gender: answers["gender"] || ""
   };
 
-  /* =========================
-     SEND BOTH REQUESTS
-  ========================= */
+  fetch(GOOGLE_SCRIPT_URL, {
 
-  Promise.all([
+    method: "POST",
 
-    fetch(GOOGLE_SCRIPT_URL, {
+    headers: {
+      "Content-Type": "application/json"
+    },
 
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify(promptData)
-    }),
-
-    fetch(GOOGLE_SCRIPT_URL, {
-
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify(surveyData)
-    })
-
-  ])
-  .then(() => {
-
-    const container = document.getElementById("dynamic-question-container");
-
-    container.innerHTML = `
-
-      <div class="thank-you-screen">
-
-        <div class="start-icon">✅</div>
-
-        <h1 class="start-title">
-          Thank you!
-        </h1>
-
-        <p class="start-sub">
-          Your responses have been recorded.
-        </p>
-
-      </div>
-    `;
-  })
-  .catch((err) => {
-
-    console.error(err);
-
-    alert("Error saving responses.");
+    body: JSON.stringify(exportData)
   });
+
+  const container = document.getElementById("dynamic-question-container");
+
+  container.innerHTML = `
+
+    <div class="thank-you-screen">
+
+      <div class="start-icon">✅</div>
+
+      <h1 class="start-title">
+        Thank you!
+      </h1>
+
+      <p class="start-sub">
+        Your responses have been recorded.
+      </p>
+
+    </div>
+  `;
 }
