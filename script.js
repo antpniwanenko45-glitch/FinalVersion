@@ -47,6 +47,7 @@ function getCondition() {
   return randomCondition;
 }
 
+const condition = getCondition();
 /* START */
 function startExperiment() {
 
