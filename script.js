@@ -387,15 +387,15 @@ if (burger && sidebar) {
 const trustQuestions = [
   {
     id: "trust_1",
-    text: "I am confident in the AI assistant."
+    text: "I am confident in the LLM."
   },
   {
     id: "trust_2",
-    text: "The AI assistant is reliable."
+    text: "The LLM is reliable."
   },
   {
     id: "trust_3",
-    text: "I can trust the AI assistant."
+    text: "I can trust the LLM."
   }
 ];
 
