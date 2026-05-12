@@ -22,7 +22,7 @@ const userId = getUserId();
    GOOGLE SHEETS ENDPOINT 
    This endpoint receives prompt data via POST request.
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwO5XPfqU_r1kjShE7LdeUEfE9-wOkrI582poE7RPfQQW2-TKrEGu_xm2jwa8p6kXH6/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxG9ZLcWqxtjvC8tBnmUh8mE45mGiydDMPVj7rkPZzqiPjmTnZHc_SfDYusGteCrLC/exec";
 
 /*
    SECOND GOOGLE SHEETS ENDPOINT
@@ -92,25 +92,12 @@ function submitModeratorSurvey() {
   }
 
   // SEND TO SECOND GOOGLE SHEET
-  fetch(GOOGLE_SCRIPT_URL, {
-
-    method: "POST",
-
-    body: JSON.stringify({
-
-      userId: userId,
-
-      q1: q1,
-      q2: q2,
-      q3: q3,
-      q4: q4,
-      q5: q5,
-
-      timestamp: new Date().toISOString()
-
-    })
-  });
-
+  moderatorAnswers.q1 = q1;
+  moderatorAnswers.q2 = q2;
+  moderatorAnswers.q3 = q3;
+  moderatorAnswers.q4 = q4;
+  moderatorAnswers.q5 = q5;
+   
 // GARAGE DOOR TRANSITION
 const survey = document.getElementById("moderator-screen");
 
@@ -248,15 +235,27 @@ function nextStep() {
        The user prompt, condition, and unique ID
        are sent to Google Sheets.
     */
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        userId: userId,
-        prompt: userText,
-        condition: condition,
-        timestamp: new Date().toISOString()
-      })
-    });
+fetch(GOOGLE_SCRIPT_URL, {
+
+  method: "POST",
+
+  headers: {
+    "Content-Type": "application/json"
+  },
+
+  body: JSON.stringify({
+
+    sheet: "Prompts",
+
+    timestamp: new Date().toISOString(),
+
+    userId: userId,
+
+    userText: userText,
+
+    condition: condition
+  })
+});
 
 /* output */
     const text = `
@@ -409,6 +408,15 @@ const demographicQuestions = [
 ];
 
 const answers = {};
+
+const moderatorAnswers = {
+  q1: "",
+  q2: "",
+  q3: "",
+  q4: "",
+  q5: ""
+};
+
 const blockDescriptions = {
 
   trust: "Please indicate to what extent you agree with the following statements about LLMs in general, based on the interaction you just experienced.",
@@ -714,17 +722,26 @@ function finishSurvey() {
 
   const exportData = {
 
+    sheet: "Moderator responses",
+
     condition: condition,
 
     timestamp: new Date().toISOString(),
 
     userId: userId,
 
-    /* MEDIATOR */
+    /* MODERATOR */
+    q1Moderator: moderatorAnswers.q1,
+    q2Moderator: moderatorAnswers.q2,
+    q3Moderator: moderatorAnswers.q3,
+    q4Moderator: moderatorAnswers.q4,
+    q5Moderator: moderatorAnswers.q5,
+
+    /* MEDIATOR = PK */
     q1Mediator: answers["pk_1"] || "",
     q2Mediator: answers["pk_2"] || "",
 
-    /* MAIN EFFECT */
+    /* MAIN EFFECT = TRUST */
     q1MainEffect: answers["trust_1"] || "",
     q2MainEffect: answers["trust_2"] || "",
     q3MainEffect: answers["trust_3"] || "",
@@ -734,6 +751,7 @@ function finishSurvey() {
 
     /* DEMOGRAPHICS */
     age: answers["age"] || "",
+
     gender: answers["gender"] || ""
   };
 
